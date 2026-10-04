@@ -46,7 +46,7 @@ internal sealed partial class BrowseCatalog
         while (true)
         {
             query.StartIndex = offset; query.Limit = BatchSize;
-            var batch = library.GetItemList(query, CancellationToken.None);
+            var batch = library.GetItemList(query, cancellationToken);
             var matches = MetadataMatches(request, batch);
             foreach (var item in batch)
             {
@@ -140,7 +140,7 @@ internal sealed partial class BrowseCatalog
         var seriesId = parent is Series ? id : parent.SeriesId;
         var membership = Query(new GetBrowseItems { LibraryId = request.LibraryId, BoxSetId = request.BoxSetId });
         membership.ItemIds = new[] { seriesId }; membership.IncludeItemTypes = new[] { "Series" }; membership.Limit = 1;
-        if (!library.GetItemList(membership, CancellationToken.None).Any(i => i.InternalId == seriesId && Visible(i))) throw new UnauthorizedAccessException();
+        if (!library.GetItemList(membership, cancellationToken).Any(i => i.InternalId == seriesId && Visible(i))) throw new UnauthorizedAccessException();
         var series = parent as Series ?? library.GetItemById(seriesId) as Series;
         if (series == null) throw new UnauthorizedAccessException();
         // A logical series may span several folders. Resolve only records inside
@@ -154,8 +154,8 @@ internal sealed partial class BrowseCatalog
         for (var offset = 0; ; offset += BatchSize)
         {
             related.StartIndex = offset; related.Limit = BatchSize;
-            var batch = library.GetItemList(related, CancellationToken.None);
-            foreach (var allowedId in library.FilterItemsToIdsForUser(batch, user, null, CancellationToken.None))
+            var batch = library.GetItemList(related, cancellationToken);
+            foreach (var allowedId in library.FilterItemsToIdsForUser(batch, user, null, cancellationToken))
                 seriesIds.Add(allowedId);
             if (batch.Length < BatchSize) break;
         }
@@ -175,9 +175,9 @@ internal sealed partial class BrowseCatalog
             else if (!string.IsNullOrEmpty(season.PresentationUniqueKey)) query.AlbumWithPresentationUniqueKey = season.PresentationUniqueKey;
             else query.ParentIds = new[] { id };
         }
-        var rows = library.GetItemList(query, CancellationToken.None);
+        var rows = library.GetItemList(query, cancellationToken);
         var page = rows.Take(50).ToArray();
-        var allowed = library.FilterItemsToIdsForUser(page, user, null, CancellationToken.None).ToHashSet();
+        var allowed = library.FilterItemsToIdsForUser(page, user, null, cancellationToken).ToHashSet();
         return new BrowseItemsInfo { Items = page.Where(i => allowed.Contains(i.InternalId)).Select(Map).ToArray(), Next = rows.Length > 50 ? request.Start + 50 : null };
     }
 }

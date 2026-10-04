@@ -10,6 +10,7 @@ using MediaBrowser.Controller.Library;
 using MediaBrowser.Controller.Net;
 using MediaBrowser.Model.Entities;
 using MediaBrowser.Model.Services;
+using MediaBrowser.Model.Querying;
 
 namespace Emby.LibraryHub;
 
@@ -75,8 +76,11 @@ internal sealed partial class BrowseCatalog
 {
     private readonly ILibraryManager library;
     private readonly User user;
-    public BrowseCatalog(ILibraryManager library, User user) { this.library = library; this.user = user; }
-    private bool Visible(BaseItem item) => library.FilterItemsToIdsForUser(new[] { item }, user, null, CancellationToken.None).Contains(item.InternalId);
+    private readonly CancellationToken cancellationToken;
+    public BrowseCatalog(ILibraryManager library, User user) : this(library, user, CancellationToken.None) { }
+    public BrowseCatalog(ILibraryManager library, User user, CancellationToken cancellationToken)
+    { this.library = library; this.user = user; this.cancellationToken = cancellationToken; }
+    private bool Visible(BaseItem item) => library.FilterItemsToIdsForUser(new[] { item }, user, null, cancellationToken).Contains(item.InternalId);
     private static string Id(BaseItem item) => item.InternalId.ToString(CultureInfo.InvariantCulture);
     private bool Offered(long id) => Plugin.Instance.Configuration.Digest.BrowseLibraryIds is not { } selected ||
         selected.Contains(id.ToString(CultureInfo.InvariantCulture));
@@ -93,7 +97,7 @@ internal sealed partial class BrowseCatalog
         var result = new List<BrowseLibrary>();
         foreach (var batch in roots.Chunk(256))
         {
-            var allowed = library.FilterItemsToIdsForUser(batch, user, null, CancellationToken.None).ToHashSet();
+            var allowed = library.FilterItemsToIdsForUser(batch, user, null, cancellationToken).ToHashSet();
             result.AddRange(batch.Where(i => Offered(i.InternalId) && allowed.Contains(i.InternalId))
                 .Select(i => new BrowseLibrary { Id = Id(i), Name = i.Name, IsCollections = collectionLibraries.Contains(i.InternalId) }));
         }
@@ -105,47 +109,50 @@ internal sealed partial class BrowseCatalog
         var query = Query(request);
         if (request.Mode == "collections" && request.HideEmptyCollections) return MatchingCollections(request, query);
         if (request.Mode != "collections") return MatchingItems(request, query);
-        var rows = library.GetItemList(query, CancellationToken.None);
+        var rows = library.GetItemList(query, cancellationToken);
         var page = rows.Take(50).ToArray();
-        var visible = library.FilterItemsToIdsForUser(page, user, null, CancellationToken.None).ToHashSet();
+        var visible = library.FilterItemsToIdsForUser(page, user, null, cancellationToken).ToHashSet();
         return new BrowseItemsInfo { Next = rows.Length > 50 ? request.Start + 50 : null,
             Items = page.Where(i => visible.Contains(i.InternalId)).Select(Map).ToArray() };
     }
     private BrowseItemsInfo MatchingCollections(GetBrowseItems request, InternalItemsQuery query)
     {
-        var matches = new List<BrowseItem>();
-        var offset = request.Start;
-        while (true)
+        // Bound each request to one page of collection headings. Search their
+        // combined contents once, rather than querying each collection separately.
+        var rows = library.GetItemList(query, cancellationToken);
+        var page = rows.Take(50).ToArray();
+        var visible = library.FilterItemsToIdsForUser(page, user, null, cancellationToken).ToHashSet();
+        var boxes = page.Where(box => visible.Contains(box.InternalId)).ToArray();
+        var found = new HashSet<long>();
+        if (boxes.Length > 0)
         {
-            query.StartIndex = offset; query.Limit = BatchSize;
-            var batch = library.GetItemList(query, CancellationToken.None);
-            foreach (var box in batch)
+            var contents = Query(new GetBrowseItems
             {
-                offset++;
-                if (!Visible(box) || !CollectionHasMatch(request, Id(box))) continue;
-                if (matches.Count == 50) return new BrowseItemsInfo { Items = matches.ToArray(), Next = offset - 1 };
-                matches.Add(Map(box));
+                Mode = "contents", LibraryId = request.LibraryId, BoxSetId = Id(boxes[0]),
+                Search = request.Search, SearchField = request.SearchField, IncludeEpisodeMetadata = request.IncludeEpisodeMetadata,
+                Kind = request.Kind, Genre = request.Genre, Year = request.Year,
+                Played = request.Played, Favorites = request.Favorites, Sort = request.Sort
+            });
+            contents.CollectionIds = boxes.Select(box => box.InternalId).ToArray();
+            contents.GroupByPresentationUniqueKey = false;
+            contents.DtoOptions.Fields = contents.DtoOptions.Fields.Append(ItemFields.Collections).Distinct().ToArray();
+            contents.Limit = BatchSize;
+            for (var offset = 0; ; offset += BatchSize)
+            {
+                contents.StartIndex = offset;
+                var batch = library.GetItemList(contents, cancellationToken);
+                var matches = MetadataMatches(request, batch);
+                foreach (var item in batch.Where(item => matches.ContainsKey(item.InternalId)))
+                    foreach (var collection in item.Collections)
+                        if (visible.Contains(collection.Id)) found.Add(collection.Id);
+                if (batch.Length < BatchSize || found.Count == boxes.Length) break;
             }
-            if (batch.Length < BatchSize) return new BrowseItemsInfo { Items = matches.ToArray() };
         }
-    }
-    private bool CollectionHasMatch(GetBrowseItems request, string boxId)
-    {
-        var query = Query(new GetBrowseItems
+        return new BrowseItemsInfo
         {
-            Mode = "contents", LibraryId = request.LibraryId, BoxSetId = boxId,
-            Search = request.Search, SearchField = request.SearchField, IncludeEpisodeMetadata = request.IncludeEpisodeMetadata,
-            Kind = request.Kind, Genre = request.Genre, Year = request.Year,
-            Played = request.Played, Favorites = request.Favorites, Sort = request.Sort
-        });
-        query.Limit = BatchSize;
-        for (var offset = 0; ; offset += BatchSize)
-        {
-            query.StartIndex = offset;
-            var batch = library.GetItemList(query, CancellationToken.None);
-            if (MetadataMatches(request, batch).Count > 0) return true;
-            if (batch.Length < BatchSize) return false;
-        }
+            Items = boxes.Where(box => found.Contains(box.InternalId)).Select(Map).ToArray(),
+            Next = rows.Length > 50 ? request.Start + 50 : null
+        };
     }
     private InternalItemsQuery Query(GetBrowseItems request)
     {
@@ -224,12 +231,12 @@ public sealed class BrowseApi : IService, IRequiresRequest
     public BrowseLibrariesInfo Get(GetBrowseLibraries request)
     {
         var user = User();
-        return new BrowseLibrariesInfo { Libraries = new BrowseCatalog(library, user).Libraries(), ServerId = host.SystemId };
+        return new BrowseLibrariesInfo { Libraries = new BrowseCatalog(library, user, Request.CancellationToken).Libraries(), ServerId = host.SystemId };
     }
     public BrowseItemsInfo Get(GetBrowseItems request)
     {
         var user = User();
-        try { return new BrowseCatalog(library, user).Items(request); }
+        try { return new BrowseCatalog(library, user, Request.CancellationToken).Items(request); }
         catch (UnauthorizedAccessException) { Request.Response.StatusCode = 404; return new BrowseItemsInfo(); }
     }
 }

@@ -29,7 +29,7 @@ internal sealed partial class BrowseCatalog
         while (true)
         {
             query.StartIndex = offset; query.Limit = BatchSize;
-            var batch = library.GetItemList(query, CancellationToken.None);
+            var batch = library.GetItemList(query, cancellationToken);
             var metadata = MetadataMatches(request, batch);
             // Read credits only for accessible items, once per batch, never once per title.
             var ids = batch.Where(i => metadata.ContainsKey(i.InternalId)).Select(i => i.InternalId).ToArray();

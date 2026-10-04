@@ -226,7 +226,7 @@
         var root = branch(c.Name, params, current, signal, 'root');
         rootGroups.push(root);
         if (c.IsCollections && !searchMode) root.details.insertBefore(node('p', t('collectionHint'), 'muted'), root.list);
-        root.details.hidden = searchMode;
+        root.details.hidden = false;
         el('browseResults').appendChild(root.details);
         root.details.open = true;
         if (searchMode) page(root, 0, current, params, signal);

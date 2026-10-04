@@ -29,7 +29,8 @@ internal sealed partial class BrowseCatalog
 
     private Dictionary<long, (string Field, string Value)> MetadataMatches(GetBrowseItems request, BaseItem[] batch)
     {
-        var visible = library.FilterItemsToIdsForUser(batch, user, null, CancellationToken.None).ToHashSet();
+        cancellationToken.ThrowIfCancellationRequested();
+        var visible = library.FilterItemsToIdsForUser(batch, user, null, cancellationToken).ToHashSet();
         var result = new Dictionary<long, (string Field, string Value)>();
         var text = request.Search.Trim();
         if (text.Length == 0)
@@ -89,7 +90,7 @@ internal sealed partial class BrowseCatalog
         while (true)
         {
             query.StartIndex = offset; query.Limit = BatchSize;
-            var batch = library.GetItemList(query, CancellationToken.None);
+            var batch = library.GetItemList(query, cancellationToken);
             var matches = MetadataMatches(request, batch);
             foreach (var item in batch)
             {
