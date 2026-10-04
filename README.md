@@ -74,13 +74,13 @@ python3 -m venv .venv-docs
 .venv-docs/bin/mkdocs serve
 ```
 
-The prepared GitHub Pages address is `https://ultreia-io.github.io/emby-library-hub/`.
+The GitHub Pages address is `https://ultreia-io.github.io/emby-library-hub/`.
 
-GitHub links and status badges become available after publication. Nothing is published by a local build.
+Local builds do not publish anything. GitHub Actions builds the website and prepares tagged releases.
 
 ## Status and license
 
-**0.1.0 is prepared locally for its first public release.** GitHub publication is pending.
+**0.1.0 is the first release line.** See GitHub Releases for available downloads.
 
 The plugin is not yet in Emby's official catalog and is not endorsed by Emby.
 

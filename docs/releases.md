@@ -1,8 +1,8 @@
 # Releases and publishing
 
-**Current status: local preparation for 0.1.0. No GitHub repository, website, or release has been published.**
+The first release line is **0.1.0**. Tagged releases are built by GitHub Actions and opened as drafts.
 
-The planned repository is `ultreia-io/emby-library-hub`, with `develop` as its default branch.
+The repository is `ultreia-io/emby-library-hub`, with `develop` as its default branch.
 
 Publishing is a separate maintainer action after local review.
 
@@ -22,7 +22,7 @@ Verify the package on the target Emby server and review the documentation before
 
 The 0.1.0 source license is GPL-3.0-only. Embedded dependencies retain their own notices.
 
-## Prepared GitHub workflows
+## GitHub workflows
 
 | Workflow   | Trigger                                         | Result                                                               |
 | ---------- | ----------------------------------------------- | -------------------------------------------------------------------- |

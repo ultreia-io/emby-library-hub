@@ -1,8 +1,8 @@
 # Versions et publication
 
-**État actuel : préparation locale de 0.1.0. Aucun dépôt GitHub, site ou version n’a été publié.**
+La première série de versions est **0.1.0**. GitHub Actions construit les versions étiquetées et prépare des brouillons.
 
-Le dépôt prévu est `ultreia-io/emby-library-hub`, avec `develop` comme branche par défaut.
+Le dépôt est `ultreia-io/emby-library-hub`, avec `develop` comme branche par défaut.
 
 La publication est une action distincte du responsable, après revue locale.
 

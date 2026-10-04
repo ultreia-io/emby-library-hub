@@ -20,7 +20,7 @@ Open the [GitHub releases page](https://github.com/ultreia-io/emby-library-hub/r
 Download **emby-library-hub-0.1.0.zip** and **SHA256SUMS** from the 0.1.0 release assets.
 Use the plugin ZIP, not GitHub's automatically generated source archives.
 
-Until the first release is published, these assets are available only from a local build using `./tools/package`.
+If no published release is available yet, build these assets locally using `./tools/package`.
 A normal installation does not need a .NET SDK, Node.js, Python, or a source checkout.
 
 On Linux, check the downloaded ZIP from the directory containing both files:
@@ -127,5 +127,4 @@ Keep configuration and data backups if you may reinstall. Removing the plugin st
 [Troubleshooting](https://ultreia-io.github.io/emby-library-hub/troubleshooting/) ·
 [Backup and recovery](https://ultreia-io.github.io/emby-library-hub/backup/)
 
-The website and release links become available when the first release is published.
 Never share configuration exports, SMTP passwords, subscriber files, or unredacted authentication logs.

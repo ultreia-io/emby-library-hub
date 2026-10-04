@@ -20,7 +20,7 @@ Ouvrez la [page des versions GitHub](https://github.com/ultreia-io/emby-library-
 Téléchargez **emby-library-hub-0.1.0.zip** et **SHA256SUMS** parmi les fichiers de la version 0.1.0.
 Choisissez le ZIP du plugin, pas les archives de sources générées automatiquement par GitHub.
 
-Avant la première publication, ces fichiers proviennent uniquement d'une compilation locale avec `./tools/package`.
+Si aucune version n'est encore publiée, construisez ces fichiers localement avec `./tools/package`.
 L'installation normale ne demande ni SDK .NET, ni Node.js, ni Python, ni copie des sources.
 
 Sous Linux, vérifiez le ZIP depuis le dossier contenant les deux fichiers :
@@ -127,5 +127,4 @@ Gardez les sauvegardes si vous envisagez une réinstallation. Le retrait arrête
 [Dépannage](https://ultreia-io.github.io/emby-library-hub/fr/troubleshooting/) ·
 [Sauvegarde et restauration](https://ultreia-io.github.io/emby-library-hub/fr/backup/)
 
-Le site et les téléchargements deviennent disponibles à la première publication.
 Ne partagez jamais d'export de configuration, mot de passe SMTP, fichier d'abonnés ou journal d'authentification non anonymisé.
