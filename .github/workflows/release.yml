@@ -1,0 +1,77 @@
+name: Release
+on:
+  push:
+    tags: ['v*']
+permissions:
+  contents: read
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - uses: actions/setup-dotnet@67a3573c9a986a3f9c594539f4ab511d57bb3ce9 # v4
+        with:
+          dotnet-version: '8.0.x'
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.12'
+      - name: Verify release version
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: python tools/check-package.py --tag-only "$RELEASE_TAG"
+      - name: Build and test
+        run: ./tools/check
+      - name: Build documentation
+        run: |
+          python -m pip install -r docs/requirements.txt
+          mkdocs build --strict
+          python tools/check-docs.py
+      - name: Package and verify
+        run: |
+          ./tools/package
+          python tools/check-package.py
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: release-assets
+          path: |
+            artifacts/Emby.LibraryHub.dll
+            artifacts/emby-library-hub-*.zip
+            artifacts/SHA256SUMS
+          if-no-files-found: error
+          retention-days: 14
+  draft:
+    needs: build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: release-assets
+          path: artifacts
+      - name: Create draft release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          python tools/check-package.py --tag-only "$RELEASE_TAG"
+          python tools/check-package.py
+          if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
+            echo 'A release already exists for this tag; refusing to overwrite it.' >&2
+            exit 1
+          fi
+          version="${RELEASE_TAG#v}"
+          gh release create "$RELEASE_TAG" --draft --verify-tag \
+            --title "Library Hub $version" \
+            --notes-file "docs/release-notes/$version.md" \
+            artifacts/Emby.LibraryHub.dll \
+            "artifacts/emby-library-hub-$version.zip" artifacts/SHA256SUMS

@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <Description>Library browsing, daily archives and email subscriptions for Emby, in French or English.</Description>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="MediaBrowser.Server.Core" Version="4.11.0.5-beta6" PrivateAssets="all" Condition="'$(EmbyReferencePath)' == ''" />
+    <PackageReference Include="System.Memory" Version="4.6.3" PrivateAssets="all" />
+    <Reference Include="$(EmbyReferencePath)/MediaBrowser.*.dll" Condition="'$(EmbyReferencePath)' != ''" Private="false" />
+    <Reference Include="$(EmbyReferencePath)/Emby.Naming.dll" Condition="'$(EmbyReferencePath)' != ''" Private="false" />
+    <Compile Include="../Emby.LibraryHub.Core/*.cs" Link="Core/%(Filename)%(Extension)" />
+    <EmbeddedResource Include="../../docs/assets/logo.svg" LogicalName="Emby.LibraryHub.Standalone.logo.svg" />
+    <EmbeddedResource Include="../../docs/assets/logo.png" LogicalName="Emby.LibraryHub.Standalone.logo.png" />
+    <EmbeddedResource Include="../../docs/assets/favicon.svg" LogicalName="Emby.LibraryHub.Standalone.favicon.svg" />
+    <EmbeddedResource Include="../../docs/assets/favicon.png" LogicalName="Emby.LibraryHub.Standalone.favicon.png" />
+    <EmbeddedResource Include="Standalone/page.html" />
+    <EmbeddedResource Include="Standalone/app.js" />
+    <EmbeddedResource Include="Standalone/browse.js" />
+    <EmbeddedResource Include="Configuration/config.html" />
+    <EmbeddedResource Include="Configuration/browse.html" />
+    <EmbeddedResource Include="Configuration/browse.js" />
+    <EmbeddedResource Include="Configuration/config.js" />
+    <EmbeddedResource Include="Configuration/locale.js" />
+    <EmbeddedResource Include="Configuration/reports.html" />
+    <EmbeddedResource Include="Configuration/reports.js" />
+    <EmbeddedResource Include="Configuration/subscriptions.html" />
+    <EmbeddedResource Include="Configuration/subscriptions.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="MailKitLite" Version="4.17.0" GeneratePathProperty="true" />
+    <PackageReference Include="MimeKitLite" Version="4.18.1" GeneratePathProperty="true" />
+    <EmbeddedResource Include="$(PkgMailKitLite)/lib/net8.0/MailKitLite.dll" LogicalName="Emby.LibraryHub.Dependencies.MailKitLite.dll" />
+    <EmbeddedResource Include="$(PkgMimeKitLite)/lib/net8.0/MimeKitLite.dll" LogicalName="Emby.LibraryHub.Dependencies.MimeKitLite.dll" />
+  </ItemGroup>
+</Project>

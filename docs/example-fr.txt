@@ -1,0 +1,13 @@
+Médiathèque — 3 octobre 2026
+
+Films
+Ajouts :
+• Dune : Deuxième partie (2024)
+  https://media.example.com/web/index.html#!/item?id=101&serverId=example-server
+Retraits :
+• Alien (1979)
+
+Séries
+Ajouts :
+• Severance — Saison 2
+  https://media.example.com/web/index.html#!/item?id=200&serverId=example-server

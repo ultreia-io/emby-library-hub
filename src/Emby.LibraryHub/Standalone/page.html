@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive"><title>Library Hub</title>
+<link rel="icon" href="{{ROOT}}/Assets/favicon.png" type="image/png" sizes="32x32">
+<link rel="icon" href="{{ROOT}}/Assets/favicon.svg" type="image/svg+xml" sizes="any">
+<style>
+:root{color-scheme:light dark;--bg:#111813;--card:#1b241e;--ink:#e8efe9;--muted:#a5b7aa;--line:#35443a;--accent:#86d19a}
+*{box-sizing:border-box}[hidden]{display:none!important}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,sans-serif}main{width:100%;max-width:1000px;min-height:100vh;margin:auto;padding:24px;display:flex;flex-direction:column}main>*{flex-shrink:0}main>.hub-footer{margin-top:auto!important}header{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}nav{display:flex;gap:20px;align-items:center;flex-wrap:wrap}a{color:var(--accent)}h1{font-size:1.7rem;margin:0;display:flex;align-items:center;gap:12px}h1 img{flex:none}h2{font-size:1.4rem}.card{margin:32px auto;padding:28px;max-width:520px;background:var(--card);border:1px solid var(--line);border-radius:14px}label{display:block;margin:16px 0 5px}input,select,button{font:inherit;border:1px solid var(--line);border-radius:8px;padding:10px}input{display:block;width:100%}input[type=checkbox]{display:inline;width:auto;margin-right:8px}button{cursor:pointer;background:var(--accent);color:var(--bg);font-weight:600}button:disabled{opacity:.5;cursor:wait}form button{margin-top:20px}#status{color:var(--muted)}#archive{width:100%;height:calc(100vh - 150px);min-height:450px;border:0;border-radius:14px}#membershipRows p{overflow-wrap:anywhere}#membershipRows button{margin-left:10px}.muted{color:var(--muted);font-size:.9rem}:focus-visible{outline:3px solid var(--accent);outline-offset:3px}@media(max-width:600px){main{padding:16px}.card{padding:20px}#archive{height:80vh}}@media(prefers-color-scheme:light){:root{--bg:#f6f8f5;--card:#fff;--ink:#17251c;--muted:#5b6a60;--line:#dce5dd;--accent:#20783b}}
+
+nav a[aria-current=page]{font-weight:700;text-decoration-thickness:3px}#browsePanel{margin:28px 0}.catalog-controls{padding:20px;background:var(--card);border:1px solid var(--line);border-radius:14px}.catalog-controls h3{font-size:1rem;margin:0 0 12px}.catalog-controls .library-picker{padding:0;border:0;background:none}.catalog-controls #catalogOrdering{border-top:1px solid var(--line);padding-top:16px}.catalog-controls .browse-check{display:flex;align-items:center;gap:8px}.search-form>label{margin-top:0}.search-form .browse-actions button{margin-top:0}.metadata-query{display:grid;grid-template-columns:minmax(160px,1fr) minmax(0,3fr);gap:12px}.metadata-query>label{grid-column:auto;margin:0}.metadata-query select{display:block;width:100%;margin-top:5px}.metadata-query input{margin-top:5px}.match-reason{display:block;white-space:normal;overflow-wrap:anywhere}@media(max-width:600px){.metadata-query{grid-template-columns:1fr}}.filter-section{margin-top:16px;border-top:1px solid var(--line);padding-top:16px}.filter-section>.browse-toolbar{border:0;padding:16px 0 0}.browse-toolbar{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;padding:20px;background:var(--card);border:1px solid var(--line);border-radius:14px}.browse-toolbar label{margin:0}.browse-toolbar input,.browse-toolbar select{width:100%;margin-top:5px}.browse-query{grid-column:1/-1}.browse-toolbar .browse-check{display:flex;align-items:center;gap:8px}.browse-check input{width:auto}.browse-actions{display:flex;gap:12px;flex-wrap:wrap;margin:16px 0}.browse-navigation{align-items:end}.browse-navigation label{margin:0}.browse-navigation .browse-check{min-height:46px}.browse-navigation select{display:block;margin-top:5px}.browse-toolbar .browse-actions{margin:0}.browse-toolbar .browse-actions button{margin-top:0}.library-picker,.browse-group{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;margin:14px 0}summary{cursor:pointer}#libraryChoices{max-height:280px;overflow:auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 16px}.library-choice{display:flex;gap:8px;align-items:center;margin:6px 0}.library-choice span{overflow-wrap:anywhere}.library-choice small{color:var(--muted);margin-left:auto}.browse-group summary strong{margin-right:18px}.browse-items{list-style:none;padding-left:18px;border-left:2px solid var(--line)}.browse-item{display:flex;flex-direction:column;padding:12px 14px;border-bottom:1px solid var(--line);overflow-wrap:anywhere}.browse-item a{font-weight:600;text-decoration:none}.browse-item a:hover{text-decoration:underline}@media(max-width:650px){.browse-toolbar{grid-template-columns:repeat(2,minmax(0,1fr));padding:14px}#libraryChoices{grid-template-columns:1fr}.browse-group{padding:12px}.browse-items{padding-left:8px}}
+.tree-branch{padding:10px 0}.tree-branch summary strong{margin-right:12px}.tree-link{font-size:.8rem;margin-left:12px}.tree-node{list-style:none}.tree-branch .browse-items{margin-left:8px}.tree-branch .browse-item{padding:10px}.tree-branch summary{overflow-wrap:anywhere}@media(max-width:650px){.tree-branch .browse-items{padding-left:5px;margin-left:0}.tree-link{display:inline-block}.tree-branch{padding:6px 0}}
+</style><script src="{{ROOT}}/Assets/browse.js" defer></script><script src="{{ROOT}}/Assets/app.js" defer></script></head>
+<body><main><header><h1><img src="{{ROOT}}/Assets/logo.svg" width="44" height="44" alt="">Library Hub</h1><nav>
+<a id="archiveLink" href="{{ROOT}}/Archive" data-text="archive">Archive</a>
+<a id="browseLink" href="{{ROOT}}/Browse" data-text="browse">Browse</a>
+<a id="searchLink" href="{{ROOT}}/Search" data-text="search">Search</a>
+<a id="subscriptionLink" href="{{ROOT}}/Subscriptions" data-text="subscription">My subscription</a>
+<select id="uiLanguage" aria-label="Language"><option value="en">English</option><option value="fr">Français</option></select>
+<button id="logout" type="button" data-text="logout" hidden>Sign out</button></nav></header>
+<p id="status" role="status" aria-live="polite"></p>
+<section id="loginPanel" class="card" hidden><h2 data-text="signin">Sign in with your Emby account</h2>
+<p id="loginHelp" class="muted" data-text="loginHelp">Sign in to read the saved reports. You will stay on this page.</p>
+<form id="loginForm" method="post"><label for="username" data-text="username">Username</label><input id="username" autocomplete="username" required>
+<label for="password" data-text="password">Password</label><input id="password" type="password" autocomplete="current-password">
+<label><input id="rememberLogin" type="checkbox" checked><span data-text="remember">Remember me on this browser</span></label>
+<button id="loginButton" type="submit" data-text="signinButton">Sign in</button></form></section>
+<section id="browsePanel" hidden>
+<h2 id="catalogHeading">Browse</h2><p id="catalogIntro" class="muted"></p>
+<div id="catalogControls" class="catalog-controls">
+<div id="browseControls" hidden><h3 id="browseLibrariesHeading"></h3></div>
+<form id="browseForm" class="search-form" hidden>
+<section id="libraryPicker" class="library-picker"><h3 id="librarySummary">Libraries</h3>
+<div id="libraryControls">
+<div id="libraryChoices"></div>
+<div class="browse-actions"><button id="browseSelectAll" type="button" data-browse="all"></button><button id="browseSelectNone" type="button" data-browse="none"></button></div></div></section>
+<section class="filter-section"><div class="metadata-query"><label><span data-browse="searchIn"></span><select id="browseSearchField"><option value="Title" data-browse="Title"></option><option value="All" data-browse="AllMetadata"></option><option value="Overview" data-browse="Overview"></option><option value="Actor" data-browse="Actors"></option><option value="Director" data-browse="Directors"></option><option value="Genres" data-browse="Genres"></option><option value="Tags" data-browse="Tags"></option><option value="Studios" data-browse="Studios"></option><option value="Year" data-browse="Year"></option></select></label><label class="browse-query"><span data-browse="search"></span><input id="browseSearch" type="search" minlength="2" maxlength="200" autocomplete="off"></label></div><div class="browse-toolbar">
+<label class="browse-query browse-check"><input id="browseEpisodeMetadata" type="checkbox"><span data-browse="episodeMetadata"></span></label>
+<label><span data-browse="kind"></span><select id="browseKind"><option value="" data-browse="any"></option><option value="Movie" data-browse="Movie"></option><option value="Series" data-browse="Series"></option><option value="Episode" data-browse="Episode"></option><option value="Audio" data-browse="Audio"></option><option value="MusicVideo" data-browse="MusicVideo"></option><option value="Video" data-browse="Video"></option><option value="AudioBook" data-browse="AudioBook"></option><option value="Photo" data-browse="Photo"></option></select></label>
+<label><span data-browse="genre"></span><input id="browseGenre" type="search" maxlength="100"></label>
+<label><span data-browse="year"></span><input id="browseYear" type="number" min="1" max="9999" step="1"></label>
+<label><span data-browse="played"></span><select id="browsePlayed"><option value="" data-browse="any"></option><option value="false" data-browse="no"></option><option value="true" data-browse="yes"></option></select></label>
+<label class="browse-check"><input id="browseFavorites" type="checkbox"><span data-browse="favorites"></span></label>
+</div>
+<div id="catalogOrdering" class="browse-actions browse-navigation"><label><span data-browse="sort"></span><select id="browseSort"><option value="SortName" data-browse="SortName"></option><option value="DateCreated" data-browse="DateCreated"></option><option value="PremiereDate" data-browse="PremiereDate"></option><option value="ProductionYear" data-browse="ProductionYear"></option><option value="CommunityRating" data-browse="CommunityRating"></option><option value="Director" data-browse="Director"></option><option value="Actor" data-browse="Actor"></option></select></label><label><span data-browse="order"></span><select id="browseOrder"><option value="asc" data-browse="ascending"></option><option value="desc" data-browse="descending"></option></select></label><label id="showEpisodesControl" class="browse-check"><input id="browseShowEpisodes" type="checkbox" autocomplete="off"><span data-browse="showEpisodes"></span></label></div>
+</section>
+<div class="browse-actions"><button id="browseReset" type="button" data-browse="reset"></button></div>
+</form>
+</div>
+<div id="catalogNavigation" class="browse-actions"><button id="browseExpand" type="button" data-browse="expand"></button><button id="browseCollapse" type="button" data-browse="collapse"></button></div>
+<p id="browseStatus" role="status" aria-live="polite"></p><div id="browseResults"></div>
+
+</section>
+<iframe id="archive" title="Library archive" referrerpolicy="no-referrer" sandbox="allow-top-navigation-by-user-activation" hidden></iframe>
+<section id="subscriptionPanel" class="card" hidden><h2 data-text="subscription">My subscription</h2>
+<form id="subscribeForm" method="post"><label for="email" data-text="email">Email address</label><input id="email" type="email" autocomplete="email" required>
+<label for="mailLanguage" data-text="mailLanguage">Email language</label><select id="mailLanguage"><option value="fr">Français</option><option value="en">English</option></select>
+<button id="subscribeButton" type="submit" data-text="subscribe">Send confirmation email</button></form>
+<div id="membershipRows"></div></section>
+<section id="actionPanel" class="card" hidden aria-labelledby="actionTitle">
+<h2 id="actionTitle"></h2><p id="actionHelp" class="muted"></p>
+<p id="actionStatus" role="status" aria-live="polite"></p>
+<button id="confirmButton" type="button" hidden></button></section>
+<footer class="hub-footer" style="margin-top:36px;padding:18px 0;border-top:1px solid #35443a;font-size:13px">© 2026 Tony Chemit · <a href="https://ultreia.io" target="_blank" rel="noopener noreferrer">ultreia.io</a> · Library Hub</footer></main></body></html>

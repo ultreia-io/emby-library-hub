@@ -1,0 +1,14 @@
+#!/bin/sh
+set -eu
+cd "$(dirname "$0")/.."
+export DOTNET_CLI_TELEMETRY_OPTOUT=1 DOTNET_NOLOGO=1
+dotnet restore --locked-mode
+dotnet build -c Release --no-restore --nologo
+dotnet test -c Release --no-restore --no-build --nologo
+node --test tests/ui/*.test.cjs
+dotnet restore tests/PluginLoadSmoke/PluginLoadSmoke.csproj --locked-mode
+plugin_test_dir=$(mktemp -d)
+trap 'rm -rf "$plugin_test_dir"' EXIT
+cp src/Emby.LibraryHub/bin/Release/net8.0/Emby.LibraryHub.dll "$plugin_test_dir/"
+dotnet run --project tests/PluginLoadSmoke -c Release --no-restore -- \
+    "$plugin_test_dir/Emby.LibraryHub.dll" src/Emby.LibraryHub/bin/Release/net8.0

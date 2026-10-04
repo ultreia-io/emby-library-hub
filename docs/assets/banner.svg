@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Library Hub</title><desc id="desc">Browse your libraries. Private daily archives and subscriber emails.</desc>
+  <rect width="1600" height="900" rx="32" fill="#102f25"/>
+  <circle cx="1420" cy="110" r="400" fill="#174434"/>
+  <circle cx="1360" cy="750" r="290" fill="#205841"/>
+  <g transform="translate(1050 240) scale(1.5)"><rect width="256" height="256" rx="56" fill="#123c2d"/>
+  <rect x="70" y="40" width="120" height="148" rx="18" fill="#438763" transform="matrix(0.978148 0.207912 -0.207912 0.978148 26.542745 -24.537346)"/>
+  <rect x="49" y="56" width="148" height="156" rx="22" fill="#f4f4e9"/>
+  <rect x="66" y="73" width="114" height="88" rx="12" fill="#23764d"/>
+  <path d="M110 93Q107 91 107 95V139Q107 143 110 141L145 121Q150 118 145 115Z" fill="#f4f4e9"/>
+  <path d="M72 179H144M72 193H118" fill="none" stroke="#23764d" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="199" cy="54" r="24" fill="#123c2d"/>
+  <circle cx="199" cy="54" r="16" fill="#f1c66b"/></g>
+  <g font-family="system-ui, sans-serif" fill="#f5f1df">
+    <text x="115" y="235" font-size="28" letter-spacing="6" fill="#b0cfb4">FOR YOUR EMBY SERVER</text>
+    <text x="110" y="380" font-size="106" font-weight="700">Library Hub</text>
+    <text x="115" y="473" font-size="37" fill="#d8e3d5">Explore your libraries,</text>
+    <text x="115" y="526" font-size="37" fill="#d8e3d5">stay up to date.</text>
+    <text x="115" y="696" font-size="26" fill="#d8e3d5">Browse &amp; discover</text>
+    <text x="415" y="696" font-size="26" fill="#d8e3d5">Daily archives</text>
+    <text x="715" y="696" font-size="26" fill="#d8e3d5">Private emails</text>
+    <text x="115" y="796" font-size="22" fill="#9bbda6">OPEN SOURCE · GPL v3 · ultreia-io</text>
+  </g>
+</svg>

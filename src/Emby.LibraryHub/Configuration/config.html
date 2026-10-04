@@ -1,0 +1,120 @@
+<div id="libraryDigestPage" is="emby-scroller"
+     class="view flex flex-direction-column scrollFrameY flex-grow"
+     data-horizontal="false" data-forcescrollbar="true" data-bindheader="true"
+     data-controller="__plugin/libraryhubjs" data-title="Library Hub">
+  <div class="scrollSlider flex-grow flex-direction-column padded-left padded-left-page padded-right padded-top-page padded-bottom-page">
+    <div class="readOnlyContent auto-center">
+    <h1 style="display:flex;align-items:center;gap:12px"><img id="digestLogo" width="48" height="48" alt="">Library Hub</h1>
+    <p><a id="browsePageLink" target="_blank" rel="noopener" data-digest-text="BrowseLibraries">Browse libraries</a> · <a id="searchPageLink" target="_blank" rel="noopener" data-digest-text="SearchLibraries">Search libraries</a></p>
+    <p data-digest-text="Intro">Browse your libraries, read daily archives, and subscribe to updates in French or English.</p>
+    <form id="digestForm">
+      <h2 data-digest-text="BrowseCatalog">Catalog browsing</h2>
+      <p data-digest-text="BrowseLibrariesHelp">Choose the libraries offered in Library Hub. Members can select a subset of these, subject to their Emby permissions. This does not affect archives or emails.</p>
+      <div id="browseLibraryChoices"></div>
+      <p id="browseLibrariesStatus" role="status" aria-live="polite"></p>
+      <h2 data-digest-text="DeliverySettings">Daily emails</h2>
+      <div class="checkboxContainer checkboxContainer-withDescription">
+        <label><input is="emby-checkbox" id="DeliveryEnabled" type="checkbox" /><span data-digest-text="DeliveryEnabled">Enable daily subscriber emails</span></label>
+        <div class="fieldDescription" data-digest-text="DeliveryHelp">Tracking continues while delivery is disabled. Only confirmed mailing-list subscribers receive reports.</div>
+      </div>
+      <div class="selectContainer">
+        <label class="selectLabel" for="Language" data-digest-text="Language">Report and preview language</label>
+        <select is="emby-select" id="Language"><option value="fr">Français</option><option value="en">English</option></select>
+        <div class="fieldDescription" data-digest-text="LanguageHelp">Subscribers choose their own email language. Library names and titles remain as stored in Emby.</div>
+      </div>
+      <div class="inputContainer">
+        <label class="inputLabel" for="DeliveryTime" data-digest-text="DeliveryTime">Delivery time</label>
+        <input is="emby-input" type="time" id="DeliveryTime" required value="08:00" />
+        <div class="fieldDescription" data-digest-text="DeliveryTimeHelp">The previous day's changes, within about five minutes of this time.</div>
+      </div>
+      <div class="inputContainer">
+        <label class="inputLabel" for="TimeZoneId" data-digest-text="TimeZoneId">Time zone</label>
+        <input is="emby-input" id="TimeZoneId" required value="Europe/Paris" />
+        <div class="fieldDescription" data-digest-text="TimeZoneHelp">For example Europe/Paris or Etc/UTC.</div>
+      </div>
+      <div class="checkboxContainer">
+        <label><input is="emby-checkbox" id="IncludeVideoLinks" type="checkbox" checked /><span data-digest-text="VideoLinks">Include links to added videos</span></label>
+      </div>
+      <div class="inputContainer">
+        <label class="inputLabel" for="PublicServerUrl" data-digest-text="PublicServerUrl">Public Emby server URL</label>
+        <input is="emby-input" id="PublicServerUrl" type="url" placeholder="https://media.example.com" />
+        <div class="fieldDescription" data-digest-text="ServerUrlHelp">The server's base address. Recipients sign in with their own Emby accounts.</div>
+      </div>
+      <div class="inputContainer"><label class="inputLabel" for="Sender" data-digest-text="Sender">Sender email</label>
+        <input is="emby-input" id="Sender" type="email" autocomplete="off" /></div>
+      <div class="inputContainer"><label class="inputLabel" for="SmtpHost" data-digest-text="SmtpHost">SMTP server</label>
+        <input is="emby-input" id="SmtpHost" autocomplete="off" /></div>
+      <div class="inputContainer"><label class="inputLabel" for="SmtpPort" data-digest-text="SmtpPort">SMTP port</label>
+        <input is="emby-input" id="SmtpPort" type="number" min="1" max="65535" required value="587" /></div>
+      <div class="checkboxContainer checkboxContainer-withDescription">
+        <label><input is="emby-checkbox" id="UseStartTls" type="checkbox" checked /><span data-digest-text="StartTls">Use STARTTLS on ports other than 465</span></label>
+        <div class="fieldDescription" data-digest-text="StartTlsHelp">Port 465 always uses TLS from connection start. Other ports use STARTTLS when checked (usually 587).</div>
+      </div>
+      <div class="inputContainer"><label class="inputLabel" for="SmtpUsername" data-digest-text="SmtpUsername">SMTP username</label>
+        <input is="emby-input" id="SmtpUsername" autocomplete="off" /></div>
+      <div class="inputContainer"><label class="inputLabel" for="SmtpPassword" data-digest-text="SmtpPassword">SMTP password</label>
+        <input is="emby-input" id="SmtpPassword" type="password" autocomplete="new-password" />
+        <div class="fieldDescription" data-digest-text="PasswordHelp">Stored in Emby's plugin configuration. Restrict access to its data directory.</div></div>
+      <button is="emby-button" id="saveButton" type="submit" class="raised button-submit block"><span data-digest-text="Save">Save</span></button>
+    </form>
+    <h2 data-digest-text="Backup">Configuration backup</h2>
+    <p data-digest-text="BackupHelp">Export saved settings as JSON. Restore a backup to replace and save all settings in one operation.</p>
+    <p data-digest-text="BackupPrivacy">The backup includes your SMTP password. Keep it private. Plugin updates normally retain your settings.</p>
+    <button is="emby-button" id="exportButton" type="button" class="raised"><span data-digest-text="Export">Export JSON</span></button>
+    <button is="emby-button" id="restoreButton" type="button" class="raised"><span data-digest-text="Restore">Restore from JSON</span></button>
+    <input id="restoreFile" type="file" accept=".json,application/json" hidden />
+    <h2 data-digest-text="PublicReports">Private community reports</h2>
+    <p data-digest-text="PublicReportsHelp">Daily reports are prepared automatically. Reading them requires an active Emby account.</p>
+    <p data-digest-text="PublicReportsPrivacy">All signed-in members read the same saved archive. Emails follow each subscriber’s library permissions.</p>
+    <p><a id="publicArchiveLink" is="emby-linkbutton" target="_blank" rel="noopener noreferrer" data-digest-text="OpenArchive">Open private archive</a></p>
+    <div class="inputContainer"><label class="inputLabel" for="PublicArchiveUrl" data-digest-text="ShareArchive">Archive link (Emby sign-in required)</label>
+      <input is="emby-input" id="PublicArchiveUrl" readonly /></div>
+    <p data-digest-text="ArchiveAccess">Members open this page through the Emby web user menu. Android TV users can sign in on a phone or computer.</p>
+    <button is="emby-button" id="resetArchiveButton" type="button" class="raised"><span data-digest-text="ResetArchive">Reset archive list</span></button>
+    <p data-digest-text="ResetHelp">A backup is kept. This clears published reports, keeping settings, subscribers, history, and the archive link.</p>
+    <p data-digest-text="ResetNext">Then choose dates below and Generate HTML only. Automatic publication resumes with today and future days.</p>
+    <p id="archiveStatus" role="status" aria-live="polite"></p>
+    <h2 data-digest-text="Subscriptions">Email subscriptions</h2>
+    <p data-digest-text="SubscriptionsHelp">Only signed-in Emby users can request and confirm subscriptions.</p>
+    <p data-digest-text="SubscriptionsDelivery">Confirmed subscribers receive separate emails at the saved delivery time when email delivery is enabled.</p>
+    <div class="checkboxContainer"><label><input is="emby-checkbox" id="SubscriptionsEnabled" type="checkbox" form="digestForm" /><span data-digest-text="SubscriptionsEnabled">Enable community subscriptions and subscriber delivery</span></label></div>
+    <p data-digest-text="SubscriptionsPause">Turning this off pauses subscriber emails and new subscriptions; unsubscribe remains available.</p>
+    <button is="emby-button" id="saveSubscriptionsButton" type="submit" form="digestForm" class="raised"><span data-digest-text="SaveSettings">Save settings</span></button>
+    <button is="emby-button" id="refreshSubscribersButton" type="button" class="raised"><span data-digest-text="RefreshSubscribers">Refresh subscribers</span></button>
+    <div style="overflow-x:auto"><table style="width:100%;text-align:left;border-collapse:collapse">
+      <thead><tr><th data-digest-text="Email">Email</th><th data-digest-text="SubscriberLanguage">Language</th><th data-digest-text="Status">Status</th><th data-digest-text="Action">Action</th></tr></thead>
+      <tbody id="subscriberRows"></tbody>
+    </table></div>
+    <p id="subscribersStatus" role="status" aria-live="polite"></p>
+    <h2 data-digest-text="GenerateReports">Generate HTML reports</h2>
+    <p data-digest-text="GenerateHelp">Generate or regenerate the archive for a date range. This never sends emails or changes subscriber delivery.</p>
+    <p data-digest-text="DateRangeHelp">Both dates are included, from 00:00 to 23:59 in your saved time zone. Today includes changes so far.</p>
+    <p data-digest-text="HistoryHelp">Past additions use Emby's recorded dates. Past removals are available only in the plugin's retained history.</p>
+    <div id="reportsForm">
+      <div class="inputContainer"><label class="inputLabel" for="HistoryFrom" data-digest-text="From">From</label>
+        <div style="display:flex;align-items:center;gap:.5em">
+          <input is="emby-input" id="HistoryFrom" type="text" placeholder="YYYY/MM/DD" data-digest-placeholder="DatePlaceholder" pattern="[0-9]{4}[-/][0-9]{2}[-/][0-9]{2}" maxlength="10" autocomplete="off" required aria-label="From date, YYYY/MM/DD" data-digest-aria="FromAria" />
+          <button is="emby-button" id="HistoryFromCalendar" type="button" class="raised" aria-label="Choose from date" data-digest-aria="ChooseFrom"><span data-digest-text="Calendar">Calendar</span></button>
+          <input id="HistoryFromPicker" type="date" tabindex="-1" aria-hidden="true" style="position:absolute;opacity:0;width:1px;height:1px;pointer-events:none" />
+        </div><div class="fieldDescription" data-digest-text="DateFormat">YYYY/MM/DD — year / month / day</div></div>
+      <div class="inputContainer"><label class="inputLabel" for="HistoryTo" data-digest-text="To">To</label>
+        <div style="display:flex;align-items:center;gap:.5em">
+          <input is="emby-input" id="HistoryTo" type="text" placeholder="YYYY/MM/DD" data-digest-placeholder="DatePlaceholder" pattern="[0-9]{4}[-/][0-9]{2}[-/][0-9]{2}" maxlength="10" autocomplete="off" required aria-label="To date, YYYY/MM/DD" data-digest-aria="ToAria" />
+          <button is="emby-button" id="HistoryToCalendar" type="button" class="raised" aria-label="Choose to date" data-digest-aria="ChooseTo"><span data-digest-text="Calendar">Calendar</span></button>
+          <input id="HistoryToPicker" type="date" tabindex="-1" aria-hidden="true" style="position:absolute;opacity:0;width:1px;height:1px;pointer-events:none" />
+        </div><div class="fieldDescription" data-digest-text="DateFormat">YYYY/MM/DD — year / month / day</div></div>
+      <button is="emby-button" id="generateReportsButton" type="button" class="raised"><span data-digest-text="Generate">Generate HTML only</span></button>
+    </div>
+    <p data-digest-text="OnceDaily">Subscribers receive at most one daily report per calendar day, after the saved delivery time. Empty days are skipped.</p>
+    <p data-digest-text="SaveBeforeGenerate">Save settings changes before generating reports. Rebuilding or resetting the archive never resends subscriber emails.</p>
+    <p id="reportsStatus" role="status" aria-live="polite"></p>
+    <h2 data-digest-text="Preview">Preview</h2>
+    <p data-digest-text="PreviewHelp">Save settings first. Preview refreshes tracked changes without sending email or clearing them.</p>
+    <p data-digest-text="CalendarDayHelp">Each report covers a complete calendar day (00:00–23:59) in the selected time zone, sent the following day.</p>
+    <button is="emby-button" id="previewButton" type="button" class="raised"><span data-digest-text="PreviewToday">Preview today’s report</span></button>
+    <pre id="digestPreview" style="white-space:pre-wrap;overflow-wrap:anywhere" aria-live="polite"></pre>
+    <p id="digestStatus" role="status" aria-live="polite"></p>
+    </div>
+  </div>
+<footer class="hub-footer" style="margin-top:auto;padding:18px 0;border-top:1px solid #35443a;font-size:13px">© 2026 Tony Chemit · <a href="https://ultreia.io" target="_blank" rel="noopener noreferrer">ultreia.io</a> · Library Hub</footer>
+</div>

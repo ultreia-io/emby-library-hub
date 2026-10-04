@@ -1,0 +1,12 @@
+**/bin/
+**/obj/
+artifacts/
+.vs/
+.idea/
+*.user
+*.suo
+.env
+site/
+.venv-docs/
+__pycache__/
+*.pyc

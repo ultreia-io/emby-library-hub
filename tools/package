@@ -1,0 +1,28 @@
+#!/bin/sh
+set -eu
+cd "$(dirname "$0")/.."
+export DOTNET_CLI_TELEMETRY_OPTOUT=1 DOTNET_NOLOGO=1
+dotnet restore --locked-mode
+dotnet build src/Emby.LibraryHub/Emby.LibraryHub.csproj -c Release --no-restore --nologo
+mkdir -p artifacts/package
+cp src/Emby.LibraryHub/bin/Release/net8.0/Emby.LibraryHub.dll artifacts/package/
+cp docs/INSTALL.md docs/INSTALL.fr.md docs/THIRD-PARTY-NOTICES.txt LICENSE NOTICE artifacts/package/
+python3 - <<'PACKAGE'
+from pathlib import Path
+import hashlib
+import xml.etree.ElementTree as ET
+import zipfile
+root = Path('artifacts')
+version = ET.parse('Directory.Build.props').findtext('./PropertyGroup/Version')
+name = f'emby-library-hub-{version}.zip'
+files = ('Emby.LibraryHub.dll', 'INSTALL.md', 'INSTALL.fr.md', 'THIRD-PARTY-NOTICES.txt', 'LICENSE', 'NOTICE')
+with zipfile.ZipFile(root / name, 'w', zipfile.ZIP_DEFLATED) as archive:
+    for file in files:
+        archive.write(root / 'package' / file, file)
+(root / 'Emby.LibraryHub.dll').write_bytes((root / 'package/Emby.LibraryHub.dll').read_bytes())
+(root / 'SHA256SUMS').write_text(''.join(
+    hashlib.sha256((root / file).read_bytes()).hexdigest() + '  ' + file + '\n'
+    for file in ('Emby.LibraryHub.dll', name)))
+print(root / name)
+PACKAGE
+python3 tools/check-package.py

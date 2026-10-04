@@ -1,0 +1,108 @@
+site_name: Library Hub
+site_description: Browse Emby libraries, read private daily archives, and subscribe to updates.
+site_url: https://ultreia-io.github.io/emby-library-hub/
+repo_url: https://github.com/ultreia-io/emby-library-hub
+repo_name: ultreia-io/emby-library-hub
+edit_uri: edit/develop/docs/
+site_dir: site
+strict: true
+copyright: Copyright © 2026 Tony Chemit · <a href="https://ultreia.io">ultreia.io</a> · GPL-3.0-only
+exclude_docs: |
+  requirements.txt
+  THIRD-PARTY-NOTICES.txt
+  example-*.txt
+  release-notes/
+theme:
+  name: material
+  language: en
+  font: false
+  logo: assets/logo.svg
+  favicon: assets/favicon.png
+  features:
+    - navigation.sections
+    - navigation.top
+    - navigation.footer
+    - content.code.copy
+    - search.suggest
+    - search.highlight
+  palette:
+    - scheme: default
+      primary: green
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - scheme: slate
+      primary: green
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+plugins:
+  - search
+  - i18n:
+      docs_structure: suffix
+      fallback_to_default: true
+      languages:
+        - locale: en
+          default: true
+          name: English
+          build: true
+        - locale: fr
+          name: Français
+          build: true
+          site_description: Explorez vos médiathèques Emby, consultez les archives privées et abonnez-vous aux nouveautés.
+          theme:
+            palette:
+              - scheme: default
+                primary: green
+                toggle:
+                  icon: material/weather-night
+                  name: Passer au thème sombre
+              - scheme: slate
+                primary: green
+                toggle:
+                  icon: material/weather-sunny
+                  name: Passer au thème clair
+          nav_translations:
+            Overview: Présentation
+            Getting started: Bien démarrer
+            Installation: Installation
+            Configuration: Configuration
+            Quick start: Démarrage rapide
+            Using Library Hub: Utiliser Library Hub
+            Subscriptions: Abonnements
+            Daily archive: Archives quotidiennes
+            Browse libraries: Explorer les médiathèques
+            Backup and recovery: Sauvegarde et restauration
+            Troubleshooting: Dépannage
+            Privacy and security: Confidentialité et sécurité
+            For contributors: Contribuer
+            Development: Développement
+            Architecture: Architecture
+            Releases: Versions et publication
+            Emby catalog: Catalogue Emby
+markdown_extensions:
+  - admonition
+  - attr_list
+  - tables
+  - pymdownx.highlight
+  - pymdownx.superfences
+extra_css:
+  - assets/extra.css
+nav:
+  - Overview: index.md
+  - Getting started:
+      - Installation: INSTALL.md
+      - Configuration: configuration.md
+      - Quick start: quick-start.md
+  - Using Library Hub:
+      - Subscriptions: subscriptions.md
+      - Daily archive: archive.md
+      - Browse libraries: browse.md
+      - Backup and recovery: backup.md
+      - Troubleshooting: troubleshooting.md
+      - Privacy and security: security.md
+  - For contributors:
+      - Development: development.md
+      - Architecture: architecture.md
+      - Releases: releases.md
+      - Emby catalog: emby-catalog.md

@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "dependencies": {
+    "net8.0": {
+      "MailKitLite": {
+        "type": "Direct",
+        "requested": "[4.17.0, )",
+        "resolved": "4.17.0",
+        "contentHash": "kw9SJGUyYSPD9FekxV9cZ00vvkEvhvNXopLfAW1dKx7E3L+AsdhpUSn6fbSblXIMJ1WXoKL3iFBLILU8j59Q2A==",
+        "dependencies": {
+          "MimeKitLite": "4.17.0",
+          "System.Formats.Asn1": "8.0.1"
+        }
+      },
+      "MimeKitLite": {
+        "type": "Direct",
+        "requested": "[4.18.1, )",
+        "resolved": "4.18.1",
+        "contentHash": "lZdJDlHonEeObqHx64+FOl2BoPeSpfzT9GyuRZ4KF0SUS8chMarrk9we6K1pR3SiRVe8TwGGbGh7yvEXFyfUMw=="
+      },
+      "System.Formats.Asn1": {
+        "type": "Transitive",
+        "resolved": "8.0.1",
+        "contentHash": "XqKba7Mm/koKSjKMfW82olQdmfbI5yqeoLV/tidRp7fbh5rmHAQ5raDI/7SU0swTzv+jgqtUGkzmFxuUg0it1A=="
+      }
+    }
+  }
+}

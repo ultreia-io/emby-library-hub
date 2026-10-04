@@ -1,0 +1,48 @@
+{
+  "version": 1,
+  "dependencies": {
+    "net8.0": {
+      "MailKitLite": {
+        "type": "Direct",
+        "requested": "[4.17.0, )",
+        "resolved": "4.17.0",
+        "contentHash": "kw9SJGUyYSPD9FekxV9cZ00vvkEvhvNXopLfAW1dKx7E3L+AsdhpUSn6fbSblXIMJ1WXoKL3iFBLILU8j59Q2A==",
+        "dependencies": {
+          "MimeKitLite": "4.17.0",
+          "System.Formats.Asn1": "8.0.1"
+        }
+      },
+      "MediaBrowser.Server.Core": {
+        "type": "Direct",
+        "requested": "[4.11.0.5-beta6, )",
+        "resolved": "4.11.0.5-beta6",
+        "contentHash": "TxTnMFl8UzeKwo1ZQ2tesp2kLfplygrjq1vfDGyZHzkrw/c598o2P4OP5mCzGpNoxwY0oDYndV0eurJoxPhGQQ==",
+        "dependencies": {
+          "MediaBrowser.Common": "4.11.0.5-beta6"
+        }
+      },
+      "MimeKitLite": {
+        "type": "Direct",
+        "requested": "[4.18.1, )",
+        "resolved": "4.18.1",
+        "contentHash": "lZdJDlHonEeObqHx64+FOl2BoPeSpfzT9GyuRZ4KF0SUS8chMarrk9we6K1pR3SiRVe8TwGGbGh7yvEXFyfUMw=="
+      },
+      "System.Memory": {
+        "type": "Direct",
+        "requested": "[4.6.3, )",
+        "resolved": "4.6.3",
+        "contentHash": "qdcDOgnFZY40+Q9876JUHnlHu7bosOHX8XISRoH94fwk6hgaeQGSgfZd8srWRZNt5bV9ZW2TljcegDNxsf+96A=="
+      },
+      "MediaBrowser.Common": {
+        "type": "Transitive",
+        "resolved": "4.11.0.5-beta6",
+        "contentHash": "nX+ShO1+JLJwZP+ya83EOtwJIxVOnstw3qeA+m6vV/9/3TNLXV4NGSCvjfeqBnWRXwSPDWPwL1dYhuyIYNfuDQ=="
+      },
+      "System.Formats.Asn1": {
+        "type": "Transitive",
+        "resolved": "8.0.1",
+        "contentHash": "XqKba7Mm/koKSjKMfW82olQdmfbI5yqeoLV/tidRp7fbh5rmHAQ5raDI/7SU0swTzv+jgqtUGkzmFxuUg0it1A=="
+      }
+    }
+  }
+}

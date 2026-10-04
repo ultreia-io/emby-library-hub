@@ -1,0 +1,9 @@
+Emby Library Hub
+Copyright (C) 2026 Tony Chemit
+SPDX-License-Identifier: GPL-3.0-only
+
+This project is independent of Emby and is not endorsed by Emby.
+Emby is a trademark of its respective owner.
+
+MailKitLite and MimeKitLite are embedded under their MIT licenses.
+See docs/THIRD-PARTY-NOTICES.txt for their copyright and license notices.

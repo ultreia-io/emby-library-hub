@@ -1,0 +1,6 @@
+:root{--md-primary-fg-color:#1b6d48;--md-accent-fg-color:#238d5a}
+[data-md-color-scheme="slate"]{--md-primary-fg-color:#174434;--md-accent-fg-color:#8fd3ac}
+.md-typeset h1{font-weight:750;letter-spacing:-.035em;color:var(--md-default-fg-color)}
+.md-typeset img[src$="banner.svg"]{border-radius:18px;margin-bottom:1rem}
+.md-typeset .md-button{border-radius:8px;margin:.25rem .4rem .5rem 0}
+.md-typeset table:not([class]){font-size:.74rem}

@@ -1,0 +1,13 @@
+Media library — 3 October 2026
+
+Films
+Added:
+• Dune : Deuxième partie (2024)
+  https://media.example.com/web/index.html#!/item?id=101&serverId=example-server
+Removed:
+• Alien (1979)
+
+Séries
+Added:
+• Severance — Season 2
+  https://media.example.com/web/index.html#!/item?id=200&serverId=example-server

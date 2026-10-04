@@ -1,0 +1,25 @@
+name: Bug report
+description: Report a reproducible problem with Library Hub.
+body:
+  - type: markdown
+    attributes:
+      value: Never include SMTP passwords, configuration exports, subscriber addresses, or private links.
+  - type: textarea
+    id: environment
+    attributes:
+      label: Versions and platform
+      description: Plugin version, Emby Server version, operating system, and browser or client.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Include expected and actual behavior. Use synthetic titles and addresses.
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Sanitized error details
+      description: Relevant error text only; remove addresses, tokens, paths, and passwords.

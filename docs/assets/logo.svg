@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title">
+  <title id="title">Library Hub</title>
+  <rect width="256" height="256" rx="56" fill="#123c2d"/>
+  <rect x="70" y="40" width="120" height="148" rx="18" fill="#438763" transform="matrix(0.978148 0.207912 -0.207912 0.978148 26.542745 -24.537346)"/>
+  <rect x="49" y="56" width="148" height="156" rx="22" fill="#f4f4e9"/>
+  <rect x="66" y="73" width="114" height="88" rx="12" fill="#23764d"/>
+  <path d="M110 93Q107 91 107 95V139Q107 143 110 141L145 121Q150 118 145 115Z" fill="#f4f4e9"/>
+  <path d="M72 179H144M72 193H118" fill="none" stroke="#23764d" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="199" cy="54" r="24" fill="#123c2d"/>
+  <circle cx="199" cy="54" r="16" fill="#f1c66b"/>
+</svg>
