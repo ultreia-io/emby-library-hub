@@ -1,7 +1,7 @@
 # Emby Library Hub
 
 [![CI](https://github.com/ultreia-io/emby-library-hub/actions/workflows/ci.yml/badge.svg)](https://github.com/ultreia-io/emby-library-hub/actions/workflows/ci.yml)
-[![Website](https://github.com/ultreia-io/emby-library-hub/actions/workflows/website.yml/badge.svg)](https://github.com/ultreia-io/emby-library-hub/actions/workflows/website.yml)
+[![Website](https://github.com/ultreia-io/emby-library-hub/actions/workflows/website.yml/badge.svg)](https://ultreia-io.github.io/emby-library-hub/)
 [![Release](https://img.shields.io/github/v/release/ultreia-io/emby-library-hub)](https://github.com/ultreia-io/emby-library-hub/releases)
 [![License: GPL v3](https://img.shields.io/badge/license-GPL--3.0-blue.svg)](LICENSE)
 ![.NET 8](https://img.shields.io/badge/.NET-8-512BD4)
