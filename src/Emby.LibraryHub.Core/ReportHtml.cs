@@ -19,7 +19,7 @@ public static class ReportHtml
         body.Append("<p class=\"muted\">").Append(partial
             ? (fr ? "Journée en cours · changements enregistrés jusqu’à présent" : "Today so far · recorded changes")
             : (fr ? "Rapport quotidien · de 00:00 à 23:59" : "Daily report · 00:00 to 23:59")).Append("</p></header>");
-        foreach (var section in message.Body.Replace("\r\n", "\n").Split("\n\n").Skip(1))
+        foreach (var section in message.Body.Replace("\r\n", "\n").Split(new[] { "\n\n" }, StringSplitOptions.None).Skip(1))
         {
             var lines = section.Split('\n');
             if (lines.Length < 2) continue;
@@ -98,9 +98,11 @@ public static class ReportHtml
         "<meta name=\"referrer\" content=\"no-referrer\"><title>" + E(title) + "</title><style>" + Css +
         "</style></head><body><main>" + body + BrandFooter + "</main></body></html>";
 
-    public const string BrandFooter = """
-        <footer class="hub-footer" style="margin-top:36px;padding:18px 0;border-top:1px solid #35443a;font-size:13px">© 2026 Tony Chemit · <a href="https://ultreia.io" target="_top" rel="noopener noreferrer">ultreia.io</a> · Library Hub</footer>
-        """;
+    public static string Version => typeof(ReportHtml).Assembly.GetName().Version!.ToString(3);
+
+    public static string BrandFooter => """
+        <footer class="hub-footer" style="margin-top:36px;padding:18px 0;border-top:1px solid #35443a;font-size:13px">© 2026 Tony Chemit · <a href="https://ultreia.io" target="_top" rel="noopener noreferrer">ultreia.io</a> · Library Hub {{VERSION}} · <a href="https://github.com/ultreia-io/emby-library-hub" target="_top" rel="noopener noreferrer">GitHub</a></footer>
+        """.Replace("{{VERSION}}", Version);
 
     private const string Css = """
         :root{color-scheme:light dark;--bg:#f6f8f5;--card:#fff;--ink:#17251c;--muted:#5b6a60;--line:#dce5dd;--accent:#20783b}

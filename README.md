@@ -4,7 +4,7 @@
 [![Website](https://github.com/ultreia-io/emby-library-hub/actions/workflows/website.yml/badge.svg)](https://ultreia-io.github.io/emby-library-hub/)
 [![Release](https://img.shields.io/github/v/release/ultreia-io/emby-library-hub?cacheSeconds=300)](https://github.com/ultreia-io/emby-library-hub/releases)
 [![License: GPL v3](https://img.shields.io/badge/license-GPL--3.0-blue.svg)](LICENSE)
-![.NET 8](https://img.shields.io/badge/.NET-8-512BD4)
+![.NET Standard 2.0](https://img.shields.io/badge/.NET_Standard-2.0-512BD4)
 ![Emby 4.11.0.5](https://img.shields.io/badge/tested%20API-Emby%204.11.0.5-52B54B)
 
 **Explore your libraries, stay up to date.**
@@ -28,6 +28,10 @@ There is no separate administrator recipient or manual historical email broadcas
 
 ## Start here
 
+[User guide](docs/user-guide.md) · [Administration guide](docs/administration.md)
+
+Both guides include screenshots; the administration guide also explains access and delivery with diagrams.
+
 1. [Download and install](docs/INSTALL.md) the single DLL, then restart Emby.
 2. Choose offered libraries, the public server URL, report language, and time zone.
 3. Open Browse or the private archive and share the link with your Emby members.
@@ -35,13 +39,13 @@ There is no separate administrator recipient or manual historical email broadcas
 
 [Installation](docs/INSTALL.md) · [Configuration](docs/configuration.md) · [Subscriptions](docs/subscriptions.md)
 
-[Browse libraries](docs/browse.md) · [Archive and reset](docs/archive.md) · [Troubleshooting](docs/troubleshooting.md) · [Quick start](docs/quick-start.md)
+[Browse libraries](docs/browse.md) · [Daily archive](docs/archive.md) · [Archive administration](docs/archive-administration.md) · [Troubleshooting](docs/troubleshooting.md) · [Quick start](docs/quick-start.md)
 
 ## Compatibility
 
-The build targets **Emby Server 4.11.0.5 on .NET 8** and uses its matching SDK.
+The plugin targets **.NET Standard 2.0** and uses the **Emby Server 4.11.0.5** SDK.
 
-Development testing includes Synology and isolated checks against that server's API assemblies.
+Development uses Synology with .NET 8, plus isolated checks against that server's API assemblies.
 
 Other server versions and platforms need validation before they can be advertised as supported.
 
@@ -62,7 +66,7 @@ Use the .NET 8 SDK, Node.js 18 or newer, and Python 3.
 
 The package contains one plugin DLL, installation instructions, license, and dependency notices.
 
-MailKit and MimeKit are embedded. Emby SDK assemblies must not be deployed with the plugin.
+MailKit, MimeKit, and their runtime dependencies are embedded. Install only the plugin DLL.
 
 [Developer guide](docs/development.md) · [Release process](docs/releases.md) · [Architecture](docs/architecture.md)
 
@@ -80,11 +84,11 @@ Local builds do not publish anything. GitHub Actions builds the website and prep
 
 ## Status and license
 
-**0.1.0 is the first release line.** See GitHub Releases for available downloads.
+See GitHub Releases for available downloads. The source version is defined in `Directory.Build.props`.
 
 The plugin is not yet in Emby's official catalog and is not endorsed by Emby.
 
-[Catalog submission preparation](docs/emby-catalog.md) · [Changelog](CHANGELOG.md) · [Security](SECURITY.md)
+[Changelog](CHANGELOG.md) · [Security](SECURITY.md)
 
 Copyright © 2026 Tony Chemit. Licensed under **GPL-3.0-only**; see [LICENSE](LICENSE).
 

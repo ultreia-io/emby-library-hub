@@ -1,6 +1,6 @@
 # Community email subscriptions
 
-Share the archive link from settings. **My subscription** opens signup; **Open private archive** returns to reports.
+Open the shared Library Hub link. **My subscription** opens signup; **Archive** returns to reports.
 
 ## Join with your Emby account
 
@@ -27,14 +27,6 @@ Unsubscribe remains available when subscriptions are paused. An administrator ca
 To change language, request confirmation again for the same address while signed into the same account.
 
 The old language remains active until confirmation. New language settings apply to newly prepared reports.
-
-## For administrators
-
-Share the archive URL from **Private community reports**. Readers must already have an Emby account.
-
-**Refresh subscribers** shows address, language, confirmation state, and failures. **Unsubscribe** removes a record.
-
-The administrator also subscribes through the member page; there is no separate administrator recipient.
 
 ## Daily delivery
 
@@ -64,3 +56,5 @@ Confirmations expire after 24 hours; stale unconfirmed records are cleaned durin
 Each scheduled invocation processes at most 100 delivery queue steps.
 
 See [privacy and security](security.md) for deleted-item restrictions.
+
+[Service and subscriber management](administration.md): instructions for administrators.

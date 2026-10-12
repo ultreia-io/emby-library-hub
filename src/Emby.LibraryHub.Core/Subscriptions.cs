@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -33,7 +32,7 @@ public sealed class Subscriber
 public sealed class SubscriptionState
 {
     public int Version { get; set; } = 1;
-    public string FormKey { get; set; } = Convert.ToHexString(RandomNumberGenerator.GetBytes(32));
+    public string FormKey { get; set; } = CryptoCompatibility.ToHex(CryptoCompatibility.RandomBytes(32));
     public List<Subscriber> Subscribers { get; set; } = new();
 }
 
@@ -64,7 +63,7 @@ public sealed class SubscriptionStore
         {
             using (var stream = new FileStream(temporary, FileMode.CreateNew, FileAccess.Write, FileShare.None, 4096, FileOptions.WriteThrough))
             {
-                var bytes = Encoding.UTF8.GetBytes(write(state)); stream.Write(bytes); stream.Flush(true);
+                var bytes = Encoding.UTF8.GetBytes(write(state)); stream.Write(bytes, 0, bytes.Length); stream.Flush(true);
             }
             if (File.Exists(path)) File.Replace(temporary, path, path + ".bak"); else File.Move(temporary, path);
         }
@@ -79,11 +78,11 @@ public sealed class SubscriptionService
     private readonly SubscriptionStore store;
     private readonly SemaphoreSlim gate = new(1, 1);
     public SubscriptionService(SubscriptionStore store) => this.store = store;
-    private static string Secret() => Convert.ToHexString(RandomNumberGenerator.GetBytes(32)).ToLowerInvariant();
-    private static string Hash(string value) => Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(value)));
-    private static bool Equal(string a, string b) => a.Length == b.Length && CryptographicOperations.FixedTimeEquals(Encoding.UTF8.GetBytes(a), Encoding.UTF8.GetBytes(b));
+    private static string Secret() => CryptoCompatibility.ToHex(CryptoCompatibility.RandomBytes(32)).ToLowerInvariant();
+    private static string Hash(string value) => CryptoCompatibility.ToHex(CryptoCompatibility.Sha256(Encoding.UTF8.GetBytes(value)));
+    private static bool Equal(string a, string b) => a.Length == b.Length && CryptoCompatibility.FixedTimeEquals(Encoding.UTF8.GetBytes(a), Encoding.UTF8.GetBytes(b));
     private static bool ValidToken(string? token) => token != null && token.Length == 64 && token.All(Uri.IsHexDigit);
-    private static string Mac(SubscriptionState state, string value) => Convert.ToHexString(HMACSHA256.HashData(Convert.FromHexString(state.FormKey), Encoding.UTF8.GetBytes(value)));
+    private static string Mac(SubscriptionState state, string value) => CryptoCompatibility.ToHex(CryptoCompatibility.HmacSha256(CryptoCompatibility.FromHex(state.FormKey), Encoding.UTF8.GetBytes(value)));
 
     public async Task<string> FormTokenAsync(string purpose, DateTimeOffset now)
     {

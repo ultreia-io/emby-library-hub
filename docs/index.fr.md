@@ -4,8 +4,29 @@
 
 **Library Hub** réunit l’exploration des médiathèques, les archives quotidiennes privées et les courriels aux abonnés.
 
-[Installer le plugin](INSTALL.md){ .md-button .md-button--primary }
-[Démarrage rapide](quick-start.md){ .md-button }
+<div class="guide-paths" markdown>
+
+<div class="guide-path" markdown>
+
+### J’utilise Library Hub
+
+Connectez-vous, explorez, recherchez, consultez les nouveautés et gérez votre abonnement.
+
+[Ouvrir le guide utilisateur](user-guide.md){ .md-button .md-button--primary }
+
+</div>
+
+<div class="guide-path" markdown>
+
+### J’administre le serveur
+
+Installez le plugin, choisissez les accès, configurez les envois et protégez vos données.
+
+[Ouvrir le guide d’administration](administration.md){ .md-button }
+
+</div>
+
+</div>
 
 ## Trouver quoi regarder
 
@@ -32,11 +53,13 @@ Les courriels ont leur propre suivi persistant et sont limités à un rapport pa
 
 ## Avant de commencer
 
-- Serveur ciblé : **Emby 4.11.0.5**, avec .NET 8.
+- Base API : **Emby 4.11.0.5**. Le plugin cible **.NET Standard 2.0**.
 - Courriels facultatifs : SMTP avec TLS sur le port 465 ou STARTTLS sur un autre port, par exemple 587.
 - Une adresse publique du serveur pour les inscriptions et les liens des rapports.
-- Une installation manuelle en attendant une éventuelle acceptation au catalogue Emby.
+- Une installation manuelle avec la DLL d’une version publiée.
 
-Les liens exigent une connexion Emby. Les archives sont communes aux membres ; les courriels respectent les droits du destinataire.
+Les liens exigent une connexion Emby. Les archives sont communes aux membres et incluent chaque médiathèque publiée.
 
-[Configurer les envois](configuration.md) · [Gérer les abonnés](subscriptions.md) · [Gérer les archives](archive.md)
+L’exploration et les courriels respectent les droits Emby du membre.
+
+[Configurer les envois](configuration.md) · [Gérer les abonnés](administration.md#4-activer-les-courriels-si-souhaite) · [Gérer les archives](archive-administration.md)

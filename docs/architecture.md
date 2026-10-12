@@ -71,6 +71,8 @@ Archive generation and reset do not invoke SMTP or change subscriber progress.
 
 Settings read Emby's active display locale independently of report and subscriber language choices.
 
-MailKitLite and MimeKitLite are embedded. Only the plugin DLL is deployed.
+The plugin targets .NET Standard 2.0. MailKitLite, MimeKitLite, and their runtime dependencies are embedded.
+
+A private assembly resolver loads embedded dependencies for the plugin. Only the plugin DLL is deployed.
 
 Tests verify core isolation, account ownership, permission changes, browser behavior, and actual Emby API contracts.

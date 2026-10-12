@@ -11,6 +11,8 @@
 ./tools/package
 ```
 
+The plugin and core library target .NET Standard 2.0. Tests and documentation tools run on .NET 8.
+
 NuGet dependencies are locked in `packages.lock.json`. Restore uses locked mode.
 
 `tools/check` runs compilation, core tests, UI controller tests, and an isolated plugin-loading smoke test.
@@ -40,7 +42,7 @@ For additional compatibility checks, provide a directory containing the target s
 ```sh
 dotnet build src/Emby.LibraryHub -c Release -p:EmbyReferencePath=/path/to/server-api
 dotnet run --project tests/PluginLoadSmoke -c Release -- \
-  src/Emby.LibraryHub/bin/Release/net8.0/Emby.LibraryHub.dll /path/to/server-api
+  src/Emby.LibraryHub/bin/Release/netstandard2.0/Emby.LibraryHub.dll /path/to/server-api
 ```
 
 Do not commit or redistribute copied server assemblies. They are verification inputs, not plugin dependencies to deploy.
@@ -81,3 +83,13 @@ Tests cover user preferences, regional variants, fallback, and independence from
 Use synthetic addresses and media in fixtures. Never commit a live server configuration or subscriber store.
 
 [Architecture](architecture.md) · [Release process](releases.md) · [Security](security.md)
+
+## Documentation visuals
+
+The guides use committed bilingual diagrams and screenshots generated from fictional data.
+
+[Regeneration instructions](https://github.com/ultreia-io/emby-library-hub/blob/develop/tools/docs-assets.md).
+
+The release version in `Directory.Build.props` also supplies plugin and documentation footers.
+
+Emby HTTP handlers return `Task<object>` so delayed results remain available to its response decoder.

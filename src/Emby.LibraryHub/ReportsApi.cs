@@ -40,6 +40,7 @@ public sealed class GetReportCalendar : IReturn<ReportCalendarInfo> { }
 [Route("/LibraryHub/Reports/Reset", "POST")]
 public sealed class ResetReports : IReturn<ReportsInfo> { }
 
+// Emby unwraps asynchronous HTTP results as Task<object>, including error DTOs.
 [Authenticated(Roles = "Admin")]
 public sealed class ReportsAdminApi : IService
 {
@@ -50,13 +51,13 @@ public sealed class ReportsAdminApi : IService
             .ToString("yyyy-MM-dd", CultureInfo.InvariantCulture)
     };
 
-    public async Task<ReportsInfo> Post(ResetReports request)
+    public async Task<object> Post(ResetReports request)
     {
         var count = await DigestCoordinator.Instance.ResetReportsAsync().ConfigureAwait(false);
         return new ReportsInfo { Count = count, Path = CommunityLinks.WebPath };
     }
 
-    public async Task<ReportsInfo> Post(GenerateReports request)
+    public async Task<object> Post(GenerateReports request)
     {
         try
         {
@@ -81,7 +82,7 @@ public sealed class CommunityReportsApi : IService, IRequiresRequest
     private readonly IAuthorizationContext authorization;
     public CommunityReportsApi(IAuthorizationContext authorization) => this.authorization = authorization;
     public IRequest Request { get; set; } = null!;
-    public async Task<PrivateReportInfo> Get(GetPrivateReport request)
+    public async Task<object> Get(GetPrivateReport request)
     {
         Request.Response.AddHeader("Cache-Control", "no-store");
         Request.Response.AddHeader("Referrer-Policy", "no-referrer");

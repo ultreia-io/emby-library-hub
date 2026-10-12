@@ -1,10 +1,11 @@
-# Install Library Hub 0.1.0
+# Install Library Hub
 
 Library Hub adds browser-based catalog browsing, daily HTML archives, and optional email subscriptions to Emby.
 
 ## Before you install
 
-- Target: **Emby Server 4.11.0.5 on .NET 8**. Synology is the development installation; other versions need validation.
+- API baseline: **Emby Server 4.11.0.5**. The plugin targets **.NET Standard 2.0**.
+- Development uses Synology with .NET 8. Other server versions and platforms need validation.
 - You need administrator access to Emby and write access to its plugin directory.
 - Choose a maintenance window: restarting Emby interrupts playback.
 - SMTP is needed only for email subscriptions. Browsing and archives work without it.
@@ -17,20 +18,8 @@ The administrator's offered-library selection affects browsing only.
 ## 1. Download
 
 Open the [GitHub releases page](https://github.com/ultreia-io/emby-library-hub/releases).
-Download **emby-library-hub-0.1.0.zip** and **SHA256SUMS** from the 0.1.0 release assets.
-Use the plugin ZIP, not GitHub's automatically generated source archives.
 
-If no published release is available yet, build these assets locally using `./tools/package`.
-A normal installation does not need a .NET SDK, Node.js, Python, or a source checkout.
-
-On Linux, check the downloaded ZIP from the directory containing both files:
-
-```sh
-sha256sum --check --ignore-missing SHA256SUMS
-```
-
-The ZIP must be reported as **OK**. Extract it and locate **Emby.LibraryHub.dll**.
-The DLL embeds its mail dependencies. Install only that DLL, not Emby SDK or separate mail assemblies.
+Download the plugin **DLL** from the latest release assets.
 
 ## 2. Install on the server
 
@@ -39,7 +28,7 @@ Library Hub is not yet in Emby's official plugin catalog. The catalog does not p
 ### Synology
 
 1. Stop **Emby Server** in DSM **Package Center**.
-2. Copy `Emby.LibraryHub.dll` into `/var/packages/EmbyServer/var/plugins/`.
+2. Copy the downloaded DLL to `/var/packages/EmbyServer/var/plugins/Emby.LibraryHub.dll`, replacing the existing file.
 3. Ensure the Emby service account can read it; mode `644` is suitable when parent directories are accessible.
 4. Start **Emby Server** in Package Center.
 5. Refresh Emby Web with **Ctrl+Shift+R** and sign in as an administrator.
@@ -51,7 +40,7 @@ If copying reports **Permission denied**, correct those permissions; do not proc
 ### Other installations
 
 Locate the active server's Emby data directory, then its `plugins` directory.
-Stop Emby, copy the DLL there with service-readable permissions, and start Emby again.
+Stop Emby, replace `plugins/Emby.LibraryHub.dll` with the downloaded DLL, and start Emby again.
 For containers, use the persistent data volume belonging to that container.
 Do not copy the DLL into an Emby client application's directory.
 

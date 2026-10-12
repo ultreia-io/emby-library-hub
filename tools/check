@@ -9,6 +9,6 @@ node --test tests/ui/*.test.cjs
 dotnet restore tests/PluginLoadSmoke/PluginLoadSmoke.csproj --locked-mode
 plugin_test_dir=$(mktemp -d)
 trap 'rm -rf "$plugin_test_dir"' EXIT
-cp src/Emby.LibraryHub/bin/Release/net8.0/Emby.LibraryHub.dll "$plugin_test_dir/"
+cp src/Emby.LibraryHub/bin/Release/netstandard2.0/Emby.LibraryHub.dll "$plugin_test_dir/"
 dotnet run --project tests/PluginLoadSmoke -c Release --no-restore -- \
-    "$plugin_test_dir/Emby.LibraryHub.dll" src/Emby.LibraryHub/bin/Release/net8.0
+    "$plugin_test_dir/Emby.LibraryHub.dll" src/Emby.LibraryHub/bin/Release/netstandard2.0

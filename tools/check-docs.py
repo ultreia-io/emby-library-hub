@@ -4,11 +4,13 @@ from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import unquote, urlsplit, urljoin
 import json
+import xml.etree.ElementTree as ET
 
 root = Path(__file__).resolve().parent.parent
 docs = root / 'docs'
 site = root / 'site'
 errors = []
+version = ET.parse(root / 'Directory.Build.props').findtext('./PropertyGroup/Version')
 class Page(HTMLParser):
     def __init__(self, source):
         super().__init__()
@@ -44,6 +46,8 @@ for english in sources:
             if actual != expected:
                 errors.append(f'Wrong {alternate} alternate: {target.relative_to(site)}')
 for html in site.rglob('*.html'):
+    if f'Library Hub {version}' not in html.read_text():
+        errors.append(f'Missing release version: {html.relative_to(site)}')
     for link in Page(html.read_text()).links:
         url = urlsplit(link)
         if url.scheme or url.netloc or not url.path: continue

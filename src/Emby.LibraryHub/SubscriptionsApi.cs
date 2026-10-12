@@ -139,7 +139,7 @@ public sealed class RemoveSubscriber : IReturn<SubscribersInfo> { public string 
 [Authenticated(Roles = "Admin")]
 public sealed class SubscribersAdminApi : IService
 {
-    public async Task<SubscribersInfo> Get(GetSubscribers request)
+    public async Task<object> Get(GetSubscribers request)
     {
         var list = await DigestCoordinator.Instance.Subscriptions.ListAsync().ConfigureAwait(false);
         return new SubscribersInfo
@@ -149,7 +149,7 @@ public sealed class SubscribersAdminApi : IService
                 Status = s.EmbyUserId == 0 ? "Needs account confirmation" : s.Confirmed ? "Subscribed" : s.Expires <= DateTimeOffset.UtcNow ? "Expired" : "Awaiting confirmation", Error = s.LastError }).ToList()
         };
     }
-    public async Task<SubscribersInfo> Post(RemoveSubscriber request)
+    public async Task<object> Post(RemoveSubscriber request)
     {
         if (!Guid.TryParseExact(request.Id, "N", out _)) throw new ArgumentException("Invalid subscriber.");
         await DigestCoordinator.Instance.Subscriptions.RemoveAsync(request.Id).ConfigureAwait(false);

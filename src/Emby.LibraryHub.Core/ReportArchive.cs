@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -77,7 +76,7 @@ public sealed class ReportArchive : IDigestReportPublisher
         subscriptionPath ??= CommunityLinks.SubscriptionRelativeWebPath;
         archivePath = System.Net.WebUtility.HtmlEncode(archivePath);
         subscriptionPath = System.Net.WebUtility.HtmlEncode(subscriptionPath);
-        if (!string.IsNullOrEmpty(day) && !ValidDay(day)) return null;
+        if (!string.IsNullOrEmpty(day) && !ValidDay(day!)) return null;
         var manifest = Load();
         if (!string.IsNullOrEmpty(day) && !manifest.Reports.Any(report => report.Day == day)) return null;
         var path = Path.Combine(directory, string.IsNullOrEmpty(day) ? "index.html" : day + ".html");
@@ -92,7 +91,9 @@ public sealed class ReportArchive : IDigestReportPublisher
         html = html.Replace("href=\"index.html\"", "href=\"" + archivePath + "\"")
             .Replace("href=\"" + CommunityLinks.RelativeWebPath, "href=\"" + archivePath)
             .Replace("href=\"" + CommunityLinks.SubscriptionRelativeWebPath, "href=\"" + subscriptionPath);
-        if (!html.Contains("class=\"hub-footer\"", StringComparison.Ordinal))
+        html = Regex.Replace(html, "<footer class=\"hub-footer\"[^>]*>.*?</footer>",
+            _ => ReportHtml.BrandFooter, RegexOptions.Singleline);
+        if (html.IndexOf("class=\"hub-footer\"", StringComparison.Ordinal) < 0)
             html = html.Replace("</main>", ReportHtml.BrandFooter + "</main>");
         // Apply the current page layout to stored reports without rewriting their files.
         html = html.Replace("</head>", "<style>main{min-height:100vh;display:flex;flex-direction:column}main>*{flex-shrink:0}main>.hub-footer{margin-top:auto!important}</style></head>");
@@ -170,7 +171,7 @@ public sealed class ReportArchive : IDigestReportPublisher
         lock (sync)
         {
             var manifest = Load();
-            if (shareId == null || shareId.Length != 32 || !CryptographicOperations.FixedTimeEquals(
+            if (shareId == null || shareId.Length != 32 || !CryptoCompatibility.FixedTimeEquals(
                 Encoding.ASCII.GetBytes(shareId), Encoding.ASCII.GetBytes(manifest.ShareId))) return null;
             if (page == "index.html") return ReportHtml.Index(manifest);
             if (page == null || !page.EndsWith(".html", StringComparison.Ordinal)) return null;

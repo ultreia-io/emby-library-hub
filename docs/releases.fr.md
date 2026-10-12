@@ -1,12 +1,19 @@
 # Versions et publication
 
-La première série de versions est **0.1.0**. GitHub Actions construit les versions étiquetées et prépare des brouillons.
+GitHub Actions construit les versions étiquetées et prépare des brouillons.
 
 Le dépôt est `ultreia-io/emby-library-hub`, avec `develop` comme branche par défaut.
 
-La publication est une action distincte du responsable, après revue locale.
+La publication est une action distincte du responsable, après revue.
 
-## Vérifications locales
+Les vérifications locales ne poussent rien, ne créent aucun tag et ne publient rien.
+
+## Préparer une version localement
+
+1. Définissez la version dans `Directory.Build.props`.
+2. Ajoutez l’entrée du journal des changements et `docs/release-notes/<version>.md`.
+3. Lancez les vérifications ci-dessous et examinez le paquet ainsi que la documentation bilingue.
+4. Vérifiez le paquet sur le serveur Emby cible avant d’approuver la publication.
 
 ```sh
 ./tools/check
@@ -14,56 +21,43 @@ La publication est une action distincte du responsable, après revue locale.
 .venv-docs/bin/mkdocs build --strict
 python3 tools/check-docs.py
 python3 tools/check-package.py
+python3 tools/check-package.py --tag-only "v<version>"
 ```
 
-Vérifiez le paquet sur le serveur Emby cible et relisez la documentation avant d’approuver la publication.
+Remplacez `<version>` par la version définie dans `Directory.Build.props`.
 
-`Directory.Build.props` définit la version. Le tag doit être exactement `v` suivi de cette version.
+L’option `--tag-only` vérifie le numéro et les notes de version. Elle ne crée aucun tag Git.
 
-Le code 0.1.0 est sous GPL-3.0-only. Les dépendances intégrées conservent leurs propres notices.
+`Directory.Build.props` définit la version. Un tag doit être exactement `v` suivi de cette version.
 
-## Workflows GitHub préparés
+Le code est sous GPL-3.0-only. Les dépendances intégrées conservent leurs propres notices.
 
-| Workflow   | Déclenchement                                    | Résultat                                                              |
-| ---------- | ------------------------------------------------ | --------------------------------------------------------------------- |
-| CI         | Push sur develop, pull request, lancement manuel | Compilation, tests, site et paquet                                    |
-| Website    | Push sur develop, lancement manuel               | Compilation stricte bilingue, puis déploiement GitHub Pages           |
-| Release    | Push d’un tag `v*`                               | Vérification, tests et création d’une version brouillon avec fichiers |
+## Workflows GitHub
+
+| Workflow | Déclenchement                                    | Résultat                                                              |
+| -------- | ------------------------------------------------ | --------------------------------------------------------------------- |
+| CI       | Push sur develop, pull request, lancement manuel | Compilation, tests, vérification du site et paquet                    |
+| Website  | Push sur develop, lancement manuel               | Compilation stricte bilingue, puis déploiement GitHub Pages           |
+| Release  | Push d’un tag `v*`                               | Vérification, tests et création d’une version brouillon avec fichiers |
 
 Les actions sont fixées par empreinte de commit. Les pull requests ne reçoivent aucun droit de publication.
 
-La publication d’une version reste manuelle : examinez le brouillon et ses fichiers avant de le rendre public.
+Le workflow de publication refuse d’écraser une version existante.
 
-Le workflow n’écrase jamais une version existante.
+## Publier une version approuvée
 
-## Mise en place initiale, après accord
+Après revue et réussite de la CI, créez et poussez le tag correspondant sur le commit validé.
 
-1. Créez le dépôt public dans `ultreia-io` et poussez les sources validées.
-2. Définissez `develop` comme branche par défaut et activez GitHub Actions.
-3. Dans **Settings → Pages**, choisissez **GitHub Actions** comme source.
-4. Activez les signalements privés de vulnérabilités et les règles de revue des branches.
-5. Actualisez les mentions de préparation locale et vérifiez les liens du site déployé.
+Pour un tag nommé `v<version>`, le workflow joint :
 
-L’adresse prévue est `https://ultreia-io.github.io/emby-library-hub/`, avec le français sous `/fr/`.
+- `Emby.LibraryHub-<version>.dll` pour l’installation manuelle.
+- `emby-library-hub-<version>.zip` avec DLL, guides d’installation français et anglais, licence et notices.
+- `emby-library-hub-<version>.sha256` pour les fichiers téléchargeables exacts.
 
-Ces étapes sont des instructions, pas des actions effectuées par une compilation locale.
+Installez la DLL téléchargée sous le nom `Emby.LibraryHub.dll`, en remplaçant le fichier précédent.
 
-## Première version
+Le brouillon utilise `docs/release-notes/<version>.md`.
 
-Après revue des sources et réussite de la CI, créez et poussez le tag `v0.1.0` sur le commit validé.
+Examinez le brouillon et ses fichiers avant de le publier manuellement.
 
-Le workflow joint :
-
-- `Emby.LibraryHub.dll` pour l’installation manuelle et une future proposition au catalogue.
-- `emby-library-hub-0.1.0.zip` avec DLL, guides d’installation français et anglais, licence et notices.
-- `SHA256SUMS` pour les fichiers téléchargeables exacts.
-
-Le brouillon utilise les notes de version de `docs/release-notes/`.
-
-Ne déplacez pas le tag et ne changez pas les numéros après publication.
-
-## Catalogue Emby
-
-Une version GitHub n’ajoute pas automatiquement le plugin au catalogue Emby.
-
-Préparez la [proposition au catalogue](emby-catalog.md) après validation du serveur avec la version finale.
+Ne déplacez pas un tag publié et ne remplacez pas ses fichiers versionnés.

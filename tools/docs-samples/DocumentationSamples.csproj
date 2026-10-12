@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <RestorePackagesWithLockFile>false</RestorePackagesWithLockFile>
+    <LibraryHubAssemblyPath Condition="'$(LibraryHubAssemblyPath)' == ''">../../src/Emby.LibraryHub.Core/bin/Release/netstandard2.0/Emby.LibraryHub.Core.dll</LibraryHubAssemblyPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Emby.LibraryHub.Core" HintPath="$(LibraryHubAssemblyPath)" />
+  </ItemGroup>
+</Project>

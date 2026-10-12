@@ -39,8 +39,8 @@ jobs:
         with:
           name: library-hub-package
           path: |
-            artifacts/Emby.LibraryHub.dll
+            artifacts/Emby.LibraryHub-*.dll
             artifacts/emby-library-hub-*.zip
-            artifacts/SHA256SUMS
+            artifacts/emby-library-hub-*.sha256
           if-no-files-found: error
           retention-days: 14

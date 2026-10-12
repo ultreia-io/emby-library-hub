@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="674" viewBox="0 0 1120 674" role="img" aria-labelledby="title description" lang="fr">
+<title id="title">Deux sorties, un historique commun</title><desc id="description">Les archives et les courriels ont des cycles indépendants. Générer ou réinitialiser les archives ne renvoie aucun courriel.</desc>
+<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="#5a8b71"/></marker></defs>
+<rect width="1120" height="674" rx="24" fill="#f1f7f3"/>
+<g font-family="DejaVu Sans,Arial,sans-serif"><text x="36" y="38" fill="#1b6d48" font-size="12" font-weight="700" letter-spacing="2">LIBRARY HUB / ADMINISTRATION</text>
+<text x="36" y="79" fill="#173e2d" font-size="30" font-weight="700">Deux sorties, un historique commun</text>
+<text x="36" y="111" fill="#52695b" font-size="17">Les archives et les courriels ont des cycles indépendants.</text>
+<path d="M346 230H395" fill="none" stroke="#5a8b71" stroke-width="2.5" marker-end="url(#arrow)"/>
+<path d="M715 230H764" fill="none" stroke="#5a8b71" stroke-width="2.5" marker-end="url(#arrow)"/>
+<path d="M560 318V332H191V368" fill="none" stroke="#5a8b71" stroke-width="2.5" marker-end="url(#arrow)"/>
+<path d="M929 318V350H560V368" fill="none" stroke="#5a8b71" stroke-width="2.5" marker-end="url(#arrow)"/>
+<path d="M715 465H764" fill="none" stroke="#5a8b71" stroke-width="2.5" marker-end="url(#arrow)"/>
+<rect x="36" y="150" width="310" height="171" rx="16" fill="#163d2c" opacity=".06"/>
+<rect x="36" y="147" width="310" height="171" rx="16" fill="white" stroke="#d4e3d9"/>
+<rect x="56" y="165" width="34" height="26" rx="8" fill="#1b6d48"/>
+<text x="73" y="183" text-anchor="middle" font-size="13" font-weight="700" fill="white">01</text>
+<text x="56" y="222" font-size="21" font-weight="700" fill="#173e2d">Changements Emby</text>
+<text x="56" y="252" font-size="16" fill="#52695b">Ajouts et suppressions</text>
+<text x="56" y="277" font-size="16" fill="#52695b">Événements + inventaire</text>
+<rect x="405" y="150" width="310" height="171" rx="16" fill="#163d2c" opacity=".06"/>
+<rect x="405" y="147" width="310" height="171" rx="16" fill="white" stroke="#d4e3d9"/>
+<rect x="425" y="165" width="34" height="26" rx="8" fill="#1b6d48"/>
+<text x="442" y="183" text-anchor="middle" font-size="13" font-weight="700" fill="white">02</text>
+<text x="425" y="222" font-size="21" font-weight="700" fill="#173e2d">Historique enregistré</text>
+<text x="425" y="252" font-size="16" fill="#52695b">Journées dans le fuseau</text>
+<text x="425" y="277" font-size="16" fill="#52695b">configuré par le serveur</text>
+<rect x="774" y="150" width="310" height="171" rx="16" fill="#163d2c" opacity=".06"/>
+<rect x="774" y="147" width="310" height="171" rx="16" fill="white" stroke="#d4e3d9"/>
+<rect x="794" y="165" width="34" height="26" rx="8" fill="#1b6d48"/>
+<text x="811" y="183" text-anchor="middle" font-size="13" font-weight="700" fill="white">03</text>
+<text x="794" y="222" font-size="21" font-weight="700" fill="#173e2d">Tâche planifiée</text>
+<text x="794" y="252" font-size="16" fill="#52695b">Toutes les cinq minutes</text>
+<text x="794" y="277" font-size="16" fill="#52695b">Heure d’envoi enregistrée</text>
+<rect x="36" y="381" width="310" height="196" rx="16" fill="#163d2c" opacity=".06"/>
+<rect x="36" y="378" width="310" height="196" rx="16" fill="white" stroke="#9b5a26"/>
+<rect x="56" y="396" width="34" height="26" rx="8" fill="#9b5a26"/>
+<text x="73" y="414" text-anchor="middle" font-size="13" font-weight="700" fill="white">A</text>
+<text x="56" y="453" font-size="21" font-weight="700" fill="#173e2d">Archives HTML</text>
+<text x="56" y="483" font-size="16" fill="#52695b">Pages publiées et conservées</text>
+<text x="56" y="508" font-size="16" fill="#52695b">Communes aux membres</text>
+<text x="56" y="533" font-size="16" fill="#52695b">La lecture n’envoie rien</text>
+<rect x="405" y="381" width="310" height="196" rx="16" fill="#163d2c" opacity=".06"/>
+<rect x="405" y="378" width="310" height="196" rx="16" fill="white" stroke="#d4e3d9"/>
+<rect x="425" y="396" width="34" height="26" rx="8" fill="#1b6d48"/>
+<text x="442" y="414" text-anchor="middle" font-size="13" font-weight="700" fill="white">B</text>
+<text x="425" y="453" font-size="21" font-weight="700" fill="#173e2d">Vérifications</text>
+<text x="425" y="483" font-size="16" fill="#52695b">Compte actif et confirmé</text>
+<text x="425" y="508" font-size="16" fill="#52695b">Droits actuels + jour terminé</text>
+<text x="425" y="533" font-size="16" fill="#52695b">Jour vide : aucun courriel</text>
+<rect x="774" y="381" width="310" height="196" rx="16" fill="#163d2c" opacity=".06"/>
+<rect x="774" y="378" width="310" height="196" rx="16" fill="white" stroke="#d4e3d9"/>
+<rect x="794" y="396" width="34" height="26" rx="8" fill="#1b6d48"/>
+<text x="811" y="414" text-anchor="middle" font-size="13" font-weight="700" fill="white">→</text>
+<text x="794" y="453" font-size="21" font-weight="700" fill="#173e2d">Envoi SMTP</text>
+<text x="794" y="483" font-size="16" fill="#52695b">Au plus un rapport par jour</text>
+<text x="794" y="508" font-size="16" fill="#52695b">Retard : le plus ancien d’abord</text>
+<text x="794" y="533" font-size="16" fill="#52695b">Échec : nouvel essai après 1 h</text>
+<rect x="36" y="605" width="1048" height="42" rx="10" fill="#e2eee6"/>
+<text x="55" y="632" font-size="16" font-weight="600" fill="#224d36">Générer ou réinitialiser les archives ne renvoie aucun courriel.</text></g></svg>

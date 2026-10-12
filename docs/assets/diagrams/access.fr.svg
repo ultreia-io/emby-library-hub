@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="680" viewBox="0 0 1120 680" role="img" aria-labelledby="title description" lang="fr">
+<title id="title">Un compte, trois règles d’accès</title><desc id="description">Le serveur authentifie chaque membre ; chaque espace applique sa propre règle. Réglages, sauvegardes et liste des abonnés : administrateurs uniquement.</desc>
+<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="#5a8b71"/></marker></defs>
+<rect width="1120" height="680" rx="24" fill="#f1f7f3"/>
+<g font-family="DejaVu Sans,Arial,sans-serif"><text x="36" y="38" fill="#1b6d48" font-size="12" font-weight="700" letter-spacing="2">LIBRARY HUB / ADMINISTRATION</text>
+<text x="36" y="79" fill="#173e2d" font-size="30" font-weight="700">Un compte, trois règles d’accès</text>
+<text x="36" y="111" fill="#52695b" font-size="17">Le serveur authentifie chaque membre ; chaque espace applique sa propre règle.</text>
+<path d="M294 334H334V209H365" fill="none" stroke="#5a8b71" stroke-width="2.5" marker-end="url(#arrow)"/>
+<path d="M334 334V357H365" fill="none" stroke="#5a8b71" stroke-width="2.5" marker-end="url(#arrow)"/>
+<path d="M334 357V506H365" fill="none" stroke="#5a8b71" stroke-width="2.5" marker-end="url(#arrow)"/>
+<rect x="36" y="243" width="258" height="190" rx="16" fill="#163d2c" opacity=".06"/>
+<rect x="36" y="240" width="258" height="190" rx="16" fill="white" stroke="#d4e3d9"/>
+<rect x="56" y="258" width="34" height="26" rx="8" fill="#1b6d48"/>
+<text x="73" y="276" text-anchor="middle" font-size="13" font-weight="700" fill="white">ID</text>
+<text x="56" y="315" font-size="21" font-weight="700" fill="#173e2d">Compte Emby</text>
+<text x="56" y="345" font-size="16" fill="#52695b">Connexion au serveur</text>
+<text x="56" y="370" font-size="16" fill="#52695b">Compte actif requis</text>
+<text x="56" y="395" font-size="16" fill="#52695b">Aucun compte distinct</text>
+<rect x="375" y="149" width="709" height="125" rx="16" fill="#163d2c" opacity=".06"/>
+<rect x="375" y="146" width="709" height="125" rx="16" fill="white" stroke="#d4e3d9"/>
+<rect x="395" y="164" width="34" height="26" rx="8" fill="#1b6d48"/>
+<text x="412" y="182" text-anchor="middle" font-size="13" font-weight="700" fill="white">01</text>
+<text x="395" y="221" font-size="21" font-weight="700" fill="#173e2d">Explorer et Rechercher</text>
+<text x="395" y="251" font-size="16" fill="#52695b">Médiathèques proposées ∩ droits Emby du membre</text>
+<rect x="375" y="298" width="709" height="125" rx="16" fill="#163d2c" opacity=".06"/>
+<rect x="375" y="295" width="709" height="125" rx="16" fill="white" stroke="#9b5a26"/>
+<rect x="395" y="313" width="34" height="26" rx="8" fill="#9b5a26"/>
+<text x="412" y="331" text-anchor="middle" font-size="13" font-weight="700" fill="white">02</text>
+<text x="395" y="370" font-size="21" font-weight="700" fill="#173e2d">Archives communes</text>
+<text x="395" y="400" font-size="16" fill="#52695b">Tous les rapports publiés, pour tous les membres connectés</text>
+<rect x="375" y="447" width="709" height="125" rx="16" fill="#163d2c" opacity=".06"/>
+<rect x="375" y="444" width="709" height="125" rx="16" fill="white" stroke="#d4e3d9"/>
+<rect x="395" y="462" width="34" height="26" rx="8" fill="#1b6d48"/>
+<text x="412" y="480" text-anchor="middle" font-size="13" font-weight="700" fill="white">03</text>
+<text x="395" y="519" font-size="21" font-weight="700" fill="#173e2d">Courriels personnels</text>
+<text x="395" y="549" font-size="16" fill="#52695b">Abonnement confirmé + droits revérifiés avant chaque envoi</text>
+<rect x="36" y="611" width="1048" height="42" rx="10" fill="#e2eee6"/>
+<text x="55" y="638" font-size="16" font-weight="600" fill="#224d36">Réglages, sauvegardes et liste des abonnés : administrateurs uniquement.</text></g></svg>

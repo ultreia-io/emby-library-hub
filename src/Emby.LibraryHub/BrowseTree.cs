@@ -23,7 +23,8 @@ internal sealed partial class BrowseCatalog
     private BrowseItemsInfo Tree(GetBrowseItems request)
     {
         if (request.Mode != "groups" && request.Mode != "items" && request.Mode != "children") throw new ArgumentException("Invalid tree operation.");
-        if (request.Group.Length > 40 || request.Group.Any(c => !char.IsAsciiLetterOrDigit(c) && c != '-' && c != '/')) throw new ArgumentException("Invalid group.");
+        if (request.Group.Length > 40 || request.Group.Any(c => !(c is >= 'A' and <= 'Z' or >= 'a' and <= 'z' or >= '0' and <= '9' or '-' or '/')))
+            throw new ArgumentException("Invalid group.");
         var pattern = request.Sort switch
         {
             "SortName" => "^(?:[A-Z]|0-9|other)$",

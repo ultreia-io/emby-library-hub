@@ -1,12 +1,17 @@
 # Releases and publishing
 
-The first release line is **0.1.0**. Tagged releases are built by GitHub Actions and opened as drafts.
+GitHub Actions builds tagged releases and opens them as drafts.
 
 The repository is `ultreia-io/emby-library-hub`, with `develop` as its default branch.
 
-Publishing is a separate maintainer action after local review.
+Publishing is a separate maintainer action after review. Local checks do not push, tag, or publish anything.
 
-## Local release checks
+## Prepare a release locally
+
+1. Set the version in `Directory.Build.props`.
+2. Add the changelog entry and `docs/release-notes/<version>.md`.
+3. Run the checks below and inspect the generated package and bilingual documentation.
+4. Verify the package on the target Emby server before approving publication.
 
 ```sh
 ./tools/check
@@ -14,56 +19,43 @@ Publishing is a separate maintainer action after local review.
 .venv-docs/bin/mkdocs build --strict
 python3 tools/check-docs.py
 python3 tools/check-package.py
+python3 tools/check-package.py --tag-only "v<version>"
 ```
 
-Verify the package on the target Emby server and review the documentation before approving publication.
+Replace `<version>` with the version from `Directory.Build.props`.
 
-`Directory.Build.props` is the version source. The release tag must be exactly `v` followed by that version.
+The `--tag-only` check validates the version string and notes. It does not create a Git tag.
 
-The 0.1.0 source license is GPL-3.0-only. Embedded dependencies retain their own notices.
+`Directory.Build.props` is the version source. A release tag must be exactly `v` followed by that version.
+
+The source license is GPL-3.0-only. Embedded dependencies retain their own notices.
 
 ## GitHub workflows
 
-| Workflow   | Trigger                                         | Result                                                               |
-| ---------- | ----------------------------------------------- | -------------------------------------------------------------------- |
-| CI         | Push to develop; pull requests; manual dispatch | Build, tests, docs checks, package artifact                          |
-| Website    | Push to develop; manual dispatch                | Strict bilingual docs build, then GitHub Pages deployment            |
-| Release    | Push a `v*` tag                                 | Validate version, build and test, create a draft release with assets |
+| Workflow | Trigger                                         | Result                                                               |
+| -------- | ----------------------------------------------- | -------------------------------------------------------------------- |
+| CI       | Push to develop; pull requests; manual dispatch | Build, tests, docs checks, package artifact                          |
+| Website  | Push to develop; manual dispatch                | Strict bilingual docs build, then GitHub Pages deployment            |
+| Release  | Push a `v*` tag                                 | Validate version, build and test, create a draft release with assets |
 
 Actions are pinned to commit hashes. Pull requests do not receive publication credentials.
 
-Release publication remains a manual step: inspect the generated draft and its artifacts before making it public.
+The release workflow refuses to overwrite an existing release.
 
-The release workflow never overwrites an existing release.
+## Publish an approved release
 
-## One-time repository setup, after approval
+After review and successful CI, create and push the matching tag from the reviewed commit.
 
-1. Create the public repository in `ultreia-io` and push the reviewed source.
-2. Set the default branch to `develop` and enable GitHub Actions.
-3. In **Settings → Pages**, choose **GitHub Actions** as the build source.
-4. Enable private vulnerability reporting and select branch review requirements.
-5. Update the publication status text and verify the deployed documentation links.
+For a tag named `v<version>`, the workflow uploads:
 
-The intended Pages address is `https://ultreia-io.github.io/emby-library-hub/`.
+- `Emby.LibraryHub-<version>.dll` for manual installation.
+- `emby-library-hub-<version>.zip` with the DLL, English/French installation guides, license, and notices.
+- `emby-library-hub-<version>.sha256` for the exact downloadable assets.
 
-These steps are instructions, not actions performed by a local build.
+Install the downloaded DLL as `Emby.LibraryHub.dll`, replacing the previous file.
 
-## Prepare the first release
+The draft release uses `docs/release-notes/<version>.md`.
 
-After source review and successful CI, create and push `v0.1.0` from the reviewed commit.
+Inspect the draft and its artifacts before manually publishing it.
 
-The workflow uploads:
-
-- `Emby.LibraryHub.dll` for manual installation and later catalog submission.
-- `emby-library-hub-0.1.0.zip` with the DLL, English/French installation guides, license, and notices.
-- `SHA256SUMS` for the exact downloadable assets.
-
-The draft release includes the versioned release notes from `docs/release-notes/`.
-
-Do not tag a different commit or change version numbers after publishing a release.
-
-## Emby catalog
-
-A GitHub release does not automatically create an Emby catalog listing.
-
-Prepare and review the separate [catalog submission](emby-catalog.md) when the server build has been validated.
+Do not move a published tag or replace its versioned files.

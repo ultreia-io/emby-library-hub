@@ -11,5 +11,6 @@ public sealed class GetDigestPreview : IReturn<DigestMessage> { }
 [Authenticated(Roles = "Admin")]
 public sealed class DigestApi : IService
 {
-    public Task<DigestMessage> Get(GetDigestPreview request) => DigestCoordinator.Instance.PreviewAsync();
+    public async Task<object> Get(GetDigestPreview request) =>
+        await DigestCoordinator.Instance.PreviewAsync().ConfigureAwait(false);
 }

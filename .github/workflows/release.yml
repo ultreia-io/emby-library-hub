@@ -41,9 +41,9 @@ jobs:
         with:
           name: release-assets
           path: |
-            artifacts/Emby.LibraryHub.dll
+            artifacts/Emby.LibraryHub-*.dll
             artifacts/emby-library-hub-*.zip
-            artifacts/SHA256SUMS
+            artifacts/emby-library-hub-*.sha256
           if-no-files-found: error
           retention-days: 14
   draft:
@@ -73,5 +73,6 @@ jobs:
           gh release create "$RELEASE_TAG" --draft --verify-tag \
             --title "Library Hub $version" \
             --notes-file "docs/release-notes/$version.md" \
-            artifacts/Emby.LibraryHub.dll \
-            "artifacts/emby-library-hub-$version.zip" artifacts/SHA256SUMS
+            "artifacts/Emby.LibraryHub-$version.dll" \
+            "artifacts/emby-library-hub-$version.zip" \
+            "artifacts/emby-library-hub-$version.sha256"

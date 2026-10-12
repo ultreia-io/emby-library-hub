@@ -1,6 +1,6 @@
 # Abonnements de la communauté
 
-Partagez le lien des archives depuis les paramètres. **Mon abonnement** ouvre l’inscription ; **Ouvrir les archives privées** revient aux rapports.
+Ouvrez le lien Library Hub partagé. **Mon abonnement** ouvre l’inscription ; **Archives** revient aux rapports.
 
 ## S’inscrire avec son compte Emby
 
@@ -27,14 +27,6 @@ Le désabonnement reste disponible si les inscriptions sont suspendues. Un admin
 Pour changer de langue, demandez une nouvelle confirmation pour la même adresse depuis le même compte.
 
 L’ancienne langue reste active jusqu’à confirmation. La nouvelle s’applique aux rapports nouvellement préparés.
-
-## Pour les administrateurs
-
-Partagez le lien dans **Rapports de la communauté privée**. Les lecteurs doivent déjà posséder un compte Emby.
-
-**Actualiser les abonnés** affiche adresse, langue, confirmation et erreurs. **Désabonner** retire une entrée.
-
-L’administrateur s’inscrit aussi depuis la page des membres ; il n’y a pas de destinataire administrateur séparé.
 
 ## Envoi quotidien
 
@@ -64,3 +56,5 @@ Les confirmations expirent après 24 heures ; les anciennes demandes sont nettoy
 Une exécution planifiée traite au maximum 100 étapes de la file d’envoi.
 
 Consultez [Confidentialité et sécurité](security.md) pour les restrictions sur les médias supprimés.
+
+[Gestion du service et des abonnés](administration.md) : guide réservé aux administrateurs.

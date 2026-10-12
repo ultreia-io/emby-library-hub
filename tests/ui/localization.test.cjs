@@ -20,7 +20,7 @@ test('all settings and archive labels have French and English translations', asy
         }
         // Every human-readable text leaf must be marked, except brand names and language autonyms.
         for (const [, tag, attrs, text] of html.matchAll(/<([a-z][a-z0-9]*)([^<>]*)>([^<>]+)<\/\1>/g)) {
-            if (['Library Hub', 'ultreia.io', 'Français', 'English'].includes(text.trim()) || !text.trim()) continue;
+            if (['Library Hub', 'ultreia.io', 'GitHub', 'Français', 'English'].includes(text.trim()) || !text.trim()) continue;
             assert.match(attrs, /data-digest-text=/, `${file}: untranslated ${tag}: ${text}`);
         }
     }

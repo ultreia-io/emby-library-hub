@@ -11,6 +11,8 @@
 ./tools/package
 ```
 
+Le plugin et la bibliothèque métier ciblent .NET Standard 2.0. Les tests et outils de documentation utilisent .NET 8.
+
 Les dépendances NuGet sont verrouillées dans `packages.lock.json`. La restauration utilise le mode verrouillé.
 
 `tools/check` compile, exécute les tests métier et d’interface, puis vérifie le chargement isolé du plugin.
@@ -39,7 +41,7 @@ Pour une vérification supplémentaire, fournissez un dossier contenant les asse
 
 ```sh
 dotnet build src/Emby.LibraryHub -c Release -p:EmbyReferencePath=/path/to/server-api
-dotnet run --project tests/PluginLoadSmoke -c Release --   src/Emby.LibraryHub/bin/Release/net8.0/Emby.LibraryHub.dll /path/to/server-api
+dotnet run --project tests/PluginLoadSmoke -c Release --   src/Emby.LibraryHub/bin/Release/netstandard2.0/Emby.LibraryHub.dll /path/to/server-api
 ```
 
 Ne versionnez ni ne redistribuez les DLL du serveur. Ce sont des références de test, pas des fichiers à déployer.
@@ -82,3 +84,13 @@ La langue d’affichage ne modifie pas celle des rapports ou des abonnés.
 Utilisez des adresses et médias fictifs. Ne versionnez jamais une configuration réelle ou un fichier d’abonnés.
 
 [Architecture](architecture.md) · [Publication](releases.md) · [Sécurité](security.md)
+
+## Visuels de documentation
+
+Les guides utilisent des diagrammes bilingues et des captures générées à partir de données fictives.
+
+[Instructions de régénération](https://github.com/ultreia-io/emby-library-hub/blob/develop/tools/docs-assets.md).
+
+La version de `Directory.Build.props` alimente aussi les pieds de page du plugin et de la documentation.
+
+Les routes HTTP Emby renvoient `Task<object>` pour conserver le résultat des opérations asynchrones.

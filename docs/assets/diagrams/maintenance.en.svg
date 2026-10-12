@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="470" viewBox="0 0 1120 470" role="img" aria-labelledby="title description" lang="en">
+<title id="title">An update that preserves your data</title><desc id="description">The DLL, configuration, and data together form your recovery point. A settings JSON export does not replace a complete backup.</desc>
+<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="#5a8b71"/></marker></defs>
+<rect width="1120" height="470" rx="24" fill="#f1f7f3"/>
+<g font-family="DejaVu Sans,Arial,sans-serif"><text x="36" y="38" fill="#1b6d48" font-size="12" font-weight="700" letter-spacing="2">LIBRARY HUB / ADMINISTRATION</text>
+<text x="36" y="79" fill="#173e2d" font-size="30" font-weight="700">An update that preserves your data</text>
+<text x="36" y="111" fill="#52695b" font-size="17">The DLL, configuration, and data together form your recovery point.</text>
+<path d="M276 246H295" fill="none" stroke="#5a8b71" stroke-width="2.5" marker-end="url(#arrow)"/>
+<path d="M545 246H564" fill="none" stroke="#5a8b71" stroke-width="2.5" marker-end="url(#arrow)"/>
+<path d="M814 246H833" fill="none" stroke="#5a8b71" stroke-width="2.5" marker-end="url(#arrow)"/>
+<rect x="36" y="157" width="240" height="211" rx="16" fill="#163d2c" opacity=".06"/>
+<rect x="36" y="154" width="240" height="211" rx="16" fill="white" stroke="#d4e3d9"/>
+<rect x="56" y="172" width="34" height="26" rx="8" fill="#1b6d48"/>
+<text x="73" y="190" text-anchor="middle" font-size="13" font-weight="700" fill="white">01</text>
+<text x="56" y="229" font-size="21" font-weight="700" fill="#173e2d">Stop Emby</text>
+<text x="56" y="259" font-size="16" fill="#52695b">Allow for interruption</text>
+<text x="56" y="284" font-size="16" fill="#52695b">of active playback</text>
+<rect x="305" y="157" width="240" height="211" rx="16" fill="#163d2c" opacity=".06"/>
+<rect x="305" y="154" width="240" height="211" rx="16" fill="white" stroke="#d4e3d9"/>
+<rect x="325" y="172" width="34" height="26" rx="8" fill="#1b6d48"/>
+<text x="342" y="190" text-anchor="middle" font-size="13" font-weight="700" fill="white">02</text>
+<text x="325" y="229" font-size="21" font-weight="700" fill="#173e2d">Back up</text>
+<text x="325" y="259" font-size="16" fill="#52695b">DLL + configuration</text>
+<text x="325" y="284" font-size="16" fill="#52695b">All of data/library-hub/</text>
+<text x="325" y="309" font-size="16" fill="#52695b">One private snapshot</text>
+<rect x="574" y="157" width="240" height="211" rx="16" fill="#163d2c" opacity=".06"/>
+<rect x="574" y="154" width="240" height="211" rx="16" fill="white" stroke="#d4e3d9"/>
+<rect x="594" y="172" width="34" height="26" rx="8" fill="#1b6d48"/>
+<text x="611" y="190" text-anchor="middle" font-size="13" font-weight="700" fill="white">03</text>
+<text x="594" y="229" font-size="21" font-weight="700" fill="#173e2d">Replace the DLL</text>
+<text x="594" y="259" font-size="16" fill="#52695b">Keep existing data</text>
+<text x="594" y="284" font-size="16" fill="#52695b">Store the old DLL outside</text>
+<text x="594" y="309" font-size="16" fill="#52695b">the plugin directory</text>
+<rect x="843" y="157" width="241" height="211" rx="16" fill="#163d2c" opacity=".06"/>
+<rect x="843" y="154" width="241" height="211" rx="16" fill="white" stroke="#d4e3d9"/>
+<rect x="863" y="172" width="34" height="26" rx="8" fill="#1b6d48"/>
+<text x="880" y="190" text-anchor="middle" font-size="13" font-weight="700" fill="white">04</text>
+<text x="863" y="229" font-size="21" font-weight="700" fill="#173e2d">Restart &amp; check</text>
+<text x="863" y="259" font-size="16" fill="#52695b">Open a known report</text>
+<text x="863" y="284" font-size="16" fill="#52695b">Check a member’s access</text>
+<text x="863" y="309" font-size="16" fill="#52695b">Check subscription status</text>
+<rect x="36" y="401" width="1048" height="42" rx="10" fill="#e2eee6"/>
+<text x="55" y="428" font-size="16" font-weight="600" fill="#224d36">A settings JSON export does not replace a complete backup.</text></g></svg>

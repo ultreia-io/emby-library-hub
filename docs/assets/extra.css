@@ -3,4 +3,16 @@
 .md-typeset h1{font-weight:750;letter-spacing:-.035em;color:var(--md-default-fg-color)}
 .md-typeset img[src$="banner.svg"]{border-radius:18px;margin-bottom:1rem}
 .md-typeset .md-button{border-radius:8px;margin:.25rem .4rem .5rem 0}
+[data-md-color-scheme="slate"] .md-typeset .md-button{color:var(--md-accent-fg-color)}
+[data-md-color-scheme="slate"] .md-typeset .md-button--primary,[data-md-color-scheme="slate"] .md-typeset .md-button:is(:hover,:focus){background:var(--md-accent-fg-color);border-color:var(--md-accent-fg-color);color:#173e2d}
 .md-typeset table:not([class]){font-size:.74rem}
+
+/* Role-based documentation and readable, clickable UI captures. */
+.guide-paths{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin:1.5rem 0 2rem}
+.guide-path{padding:1.2rem;border:1px solid var(--md-default-fg-color--lightest);border-radius:14px;background:var(--md-code-bg-color)}
+.md-typeset .guide-path h3{margin-top:0}
+.md-typeset .guide-path .md-button{font-size:.72rem}
+.md-typeset .guide-shot img{display:block;border:1px solid var(--md-default-fg-color--lightest);border-radius:12px;box-shadow:0 8px 28px #173e2d12;margin:1.2rem auto .7rem;width:100%}
+.md-typeset .guide-phone img{max-width:340px}
+.md-typeset img[src*="/diagrams/"]{display:block;width:100%;border-radius:16px;margin:1.5rem 0}
+@media(max-width:700px){.guide-paths{grid-template-columns:1fr}.guide-path{padding:1rem}}

@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
     <Description>Library browsing, daily archives and email subscriptions for Emby, in French or English.</Description>
   </PropertyGroup>
@@ -30,7 +30,34 @@
   <ItemGroup>
     <PackageReference Include="MailKitLite" Version="4.17.0" GeneratePathProperty="true" />
     <PackageReference Include="MimeKitLite" Version="4.18.1" GeneratePathProperty="true" />
-    <EmbeddedResource Include="$(PkgMailKitLite)/lib/net8.0/MailKitLite.dll" LogicalName="Emby.LibraryHub.Dependencies.MailKitLite.dll" />
-    <EmbeddedResource Include="$(PkgMimeKitLite)/lib/net8.0/MimeKitLite.dll" LogicalName="Emby.LibraryHub.Dependencies.MimeKitLite.dll" />
+    <EmbeddedResource Include="../../docs/THIRD-PARTY-NOTICES.txt" LogicalName="Emby.LibraryHub.THIRD-PARTY-NOTICES.txt" />
+    <EmbeddedResource Include="../../LICENSE" LogicalName="Emby.LibraryHub.LICENSE" />
+    <EmbeddedResource Include="../../NOTICE" LogicalName="Emby.LibraryHub.NOTICE" />
   </ItemGroup>
+  <!-- Include the resolved portable dependency closure; never redistribute Emby's SDK assemblies. -->
+  <Target Name="EmbedPortableDependencies" BeforeTargets="AssignTargetPaths" DependsOnTargets="ResolveReferences">
+    <ItemGroup>
+      <EmbeddedResource Include="@(ReferenceCopyLocalPaths)"
+                        Condition="'%(ReferenceCopyLocalPaths.NuGetPackageId)' != '' And '%(ReferenceCopyLocalPaths.NuGetPackageId)' != 'MediaBrowser.Common' And '%(ReferenceCopyLocalPaths.NuGetPackageId)' != 'MediaBrowser.Server.Core' And '%(ReferenceCopyLocalPaths.Extension)' == '.dll'">
+        <LogicalName>Emby.LibraryHub.Dependencies.%(Filename)%(Extension)</LogicalName>
+      </EmbeddedResource>
+    </ItemGroup>
+  </Target>
+  <Target Name="StampPageVersions" BeforeTargets="AssignTargetPaths">
+    <ItemGroup>
+      <VersionedPage Include="Configuration/*.html;Standalone/page.html" />
+      <VersionedPage Update="@(VersionedPage)">
+        <LogicalName>Emby.LibraryHub.$([System.String]::Copy('%(VersionedPage.Identity)').Replace('/', '.'))</LogicalName>
+        <OutputFile>$(IntermediateOutputPath)versioned/%(VersionedPage.Identity)</OutputFile>
+      </VersionedPage>
+    </ItemGroup>
+    <MakeDir Directories="@(VersionedPage->'$(IntermediateOutputPath)versioned/%(RelativeDir)')" />
+    <WriteLinesToFile File="%(VersionedPage.OutputFile)"
+                      Lines="$([MSBuild]::Escape($([System.IO.File]::ReadAllText('%(VersionedPage.Identity)').Replace('{{VERSION}}', '$(Version)'))))"
+                      Overwrite="true" WriteOnlyWhenDifferent="true" Encoding="UTF-8" />
+    <ItemGroup>
+      <EmbeddedResource Remove="@(VersionedPage)" />
+      <EmbeddedResource Include="@(VersionedPage->'%(OutputFile)')" />
+    </ItemGroup>
+  </Target>
 </Project>

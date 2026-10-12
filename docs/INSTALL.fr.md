@@ -1,10 +1,11 @@
-# Installer Library Hub 0.1.0
+# Installer Library Hub
 
 Library Hub ajoute à Emby un catalogue dans le navigateur, des archives HTML quotidiennes et des abonnements facultatifs par courriel.
 
 ## Avant de commencer
 
-- Cible : **Emby Server 4.11.0.5 avec .NET 8**. Le développement utilise Synology ; les autres versions restent à valider.
+- Base API : **Emby Server 4.11.0.5**. Le plugin cible **.NET Standard 2.0**.
+- Le développement utilise Synology avec .NET 8. Les autres versions et plateformes restent à valider.
 - Vous devez administrer Emby et pouvoir écrire dans son dossier de plugins.
 - Prévoyez une interruption : redémarrer Emby coupe les lectures en cours.
 - Le serveur SMTP sert uniquement aux abonnements. Exploration et archives fonctionnent sans courriel.
@@ -17,20 +18,8 @@ La sélection de médiathèques par l'administrateur concerne seulement l'explor
 ## 1. Télécharger
 
 Ouvrez la [page des versions GitHub](https://github.com/ultreia-io/emby-library-hub/releases).
-Téléchargez **emby-library-hub-0.1.0.zip** et **SHA256SUMS** parmi les fichiers de la version 0.1.0.
-Choisissez le ZIP du plugin, pas les archives de sources générées automatiquement par GitHub.
 
-Si aucune version n'est encore publiée, construisez ces fichiers localement avec `./tools/package`.
-L'installation normale ne demande ni SDK .NET, ni Node.js, ni Python, ni copie des sources.
-
-Sous Linux, vérifiez le ZIP depuis le dossier contenant les deux fichiers :
-
-```sh
-sha256sum --check --ignore-missing SHA256SUMS
-```
-
-Le résultat du ZIP doit être **OK**. Extrayez-le et repérez **Emby.LibraryHub.dll**.
-La DLL contient ses dépendances de messagerie. Installez seulement cette DLL, sans assemblages Emby ni DLL de messagerie supplémentaires.
+Téléchargez la **DLL** du plugin parmi les fichiers de la dernière version.
 
 ## 2. Installer sur le serveur
 
@@ -39,7 +28,7 @@ Library Hub n'est pas encore dans le catalogue officiel Emby. Ce catalogue ne pe
 ### Synology
 
 1. Arrêtez **Emby Server** dans le **Centre de paquets** DSM.
-2. Copiez `Emby.LibraryHub.dll` dans `/var/packages/EmbyServer/var/plugins/`.
+2. Copiez la DLL téléchargée vers `/var/packages/EmbyServer/var/plugins/Emby.LibraryHub.dll`, en remplaçant le fichier existant.
 3. Donnez au compte de service Emby le droit de lire le fichier ; le mode `644` convient si les dossiers parents sont accessibles.
 4. Démarrez **Emby Server** depuis le Centre de paquets.
 5. Actualisez Emby Web avec **Ctrl+Maj+R** et connectez-vous avec un compte administrateur.
@@ -51,7 +40,7 @@ Si la copie indique **Permission denied**, corrigez les permissions ; ne poursui
 ### Autres installations
 
 Repérez le dossier de données de l'instance Emby active, puis son sous-dossier `plugins`.
-Arrêtez Emby, copiez la DLL en autorisant sa lecture par le service, puis redémarrez Emby.
+Arrêtez Emby, remplacez `plugins/Emby.LibraryHub.dll` par la DLL téléchargée, puis redémarrez Emby.
 Avec un conteneur, utilisez son volume de données persistant.
 Ne copiez pas la DLL dans le dossier d'une application cliente Emby.
 

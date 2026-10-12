@@ -483,6 +483,8 @@ try
 }
 finally { Directory.Delete(archiveDirectory, true); }
 
+await ReportResponses.CheckAsync(assembly, serverPath);
+
 public static class ArchiveSmoke
 {
     public static Delegate Deserializer<T>() => new Func<string, T>(text => System.Text.Json.JsonSerializer.Deserialize<T>(text)!);

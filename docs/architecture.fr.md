@@ -71,6 +71,8 @@ Génération et réinitialisation n’utilisent pas SMTP et ne modifient pas la 
 
 Les paramètres suivent la langue active d’Emby, indépendamment des rapports et de la langue choisie par chaque abonné.
 
-MailKitLite et MimeKitLite sont intégrés. Seule la DLL du plugin est déployée.
+Le plugin cible .NET Standard 2.0. MailKitLite, MimeKitLite et leurs dépendances sont intégrés.
+
+Un résolveur privé charge ces dépendances pour le plugin. Seule la DLL du plugin est déployée.
 
 Les tests vérifient l’isolation, les propriétaires, les changements de droits, le navigateur et les contrats API Emby réels.

@@ -5,6 +5,8 @@ on:
     paths:
       - 'docs/**'
       - 'mkdocs.yml'
+      - 'Directory.Build.props'
+      - 'tools/docs-version.py'
       - 'tools/check-docs.py'
       - '.github/workflows/website.yml'
   workflow_dispatch:

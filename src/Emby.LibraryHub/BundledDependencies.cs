@@ -1,31 +1,44 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using System.Runtime.Loader;
 
 namespace Emby.LibraryHub;
 
+/// <summary>Resolves private embedded dependencies on both .NET and Mono without taking over other plugins' loads.</summary>
 internal static class BundledDependencies
 {
-    // Emby loads plugins in isolated contexts, where adjacent DLLs are not resolved.
-    // Load embedded dependencies into this plugin's context before any SMTP code runs.
+    private const string Prefix = "Emby.LibraryHub.Dependencies.";
+    private static readonly Assembly Owner = typeof(BundledDependencies).Assembly;
+    private static readonly Dictionary<string, Assembly> Loaded = new(StringComparer.OrdinalIgnoreCase);
+    private static readonly object Gate = new();
+
+    /// <summary>Registers the resolver before plugin code can request the mail assemblies.</summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Usage", "CA2255",
         Justification = "Emby dependency loading must be initialized before plugin code is JIT compiled.")]
     [ModuleInitializer]
     internal static void Initialize()
     {
-        var assembly = typeof(BundledDependencies).Assembly;
-        var context = AssemblyLoadContext.GetLoadContext(assembly)
-            ?? throw new InvalidOperationException("The plugin has no assembly load context.");
-        Load(context, assembly, "MimeKitLite");
-        Load(context, assembly, "MailKitLite");
+        AppDomain.CurrentDomain.AssemblyResolve += Resolve;
     }
 
-    private static void Load(AssemblyLoadContext context, Assembly assembly, string name)
+    /// <summary>Loads a known embedded assembly only for this plugin or one of its own dependencies.</summary>
+    private static Assembly? Resolve(object? sender, ResolveEventArgs args)
     {
-        using var stream = assembly.GetManifestResourceStream("Emby.LibraryHub.Dependencies." + name + ".dll")
-            ?? throw new FileNotFoundException("Missing bundled dependency: " + name);
-        context.LoadFromStream(stream);
+        lock (Gate)
+        {
+            if (args.RequestingAssembly != Owner && !Loaded.ContainsValue(args.RequestingAssembly!)) return null;
+            var name = new AssemblyName(args.Name).Name;
+            if (name == null) return null;
+            if (Loaded.TryGetValue(name, out var loaded)) return loaded;
+            using var stream = Owner.GetManifestResourceStream(Prefix + name + ".dll");
+            if (stream == null) return null;
+            using var bytes = new MemoryStream();
+            stream.CopyTo(bytes);
+            loaded = Assembly.Load(bytes.ToArray());
+            Loaded.Add(name, loaded);
+            return loaded;
+        }
     }
 }

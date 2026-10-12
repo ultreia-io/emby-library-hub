@@ -25,8 +25,10 @@ if args.tag_only is not None:
 
 artifacts = root / 'artifacts'
 archive_name = f'emby-library-hub-{version}.zip'
-expected_assets = {'Emby.LibraryHub.dll', archive_name}
-lines = (artifacts / 'SHA256SUMS').read_text().splitlines()
+dll_name = f'Emby.LibraryHub-{version}.dll'
+checksum_name = f'emby-library-hub-{version}.sha256'
+expected_assets = {dll_name, archive_name}
+lines = (artifacts / checksum_name).read_text().splitlines()
 checksums = {}
 for line in lines:
     match = re.fullmatch(r'([0-9a-f]{64})  ([^/\\]+)', line)
@@ -34,7 +36,7 @@ for line in lines:
         raise SystemExit('Malformed or duplicate checksum entry.')
     checksums[match[2]] = match[1]
 if set(checksums) != expected_assets:
-    raise SystemExit('SHA256SUMS must list exactly the DLL and versioned ZIP.')
+    raise SystemExit(f'{checksum_name} must list exactly the versioned DLL and ZIP.')
 for name, checksum in checksums.items():
     if hashlib.sha256((artifacts / name).read_bytes()).hexdigest() != checksum:
         raise SystemExit(f'Checksum mismatch: {name}')
@@ -44,7 +46,7 @@ with zipfile.ZipFile(artifacts / archive_name) as archive:
         raise SystemExit('ZIP must contain only the plugin DLL, installation guide, license, and notices.')
     if archive.testzip() is not None:
         raise SystemExit('ZIP integrity check failed.')
-    if archive.read('Emby.LibraryHub.dll') != (artifacts / 'Emby.LibraryHub.dll').read_bytes():
+    if archive.read('Emby.LibraryHub.dll') != (artifacts / dll_name).read_bytes():
         raise SystemExit('Packaged and standalone DLLs differ.')
     for name, source in [('INSTALL.md', 'docs/INSTALL.md'), ('INSTALL.fr.md', 'docs/INSTALL.fr.md'), ('THIRD-PARTY-NOTICES.txt', 'docs/THIRD-PARTY-NOTICES.txt'), ('LICENSE', 'LICENSE'), ('NOTICE', 'NOTICE')]:
         if archive.read(name) != (root / source).read_bytes():
